@@ -1,4 +1,7 @@
 using Bazaar_Store.Data;
+using Bazaar_Store.Models.Interface;
+using Bazaar_Store.Models.Service;
+using Bazaar_Store.Models.Serviece;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +29,14 @@ namespace Bazaar_Store
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddTransient<ICategory, CategoryServieces>();
+         //   services.AddTransient<ICategory, CategoryServieces>();
+            services.AddTransient<IProdect, ProdectServieces>();
+            services.AddControllers();
+            
+
+
             services.AddDbContext<BazaarDbcontext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
