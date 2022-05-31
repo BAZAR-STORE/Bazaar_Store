@@ -9,18 +9,13 @@ namespace Bazaar_Store.Data
 {
     public class BazaarDbcontext : DbContext
     {
-        public DbSet<Admin> Admins { get; set; }
+        
 
-        public DbSet<Cart> Carts { get; set; }
-
-        public DbSet<Customer> Customers { get; set; }
-
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public DbSet<Prodect> Prodects { get; set; }
 
-        public DbSet<Feedback> Feedbacks { get; set; }
-
+       
 
         public BazaarDbcontext(DbContextOptions options) : base(options)
         {
@@ -32,18 +27,16 @@ namespace Bazaar_Store.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Admin>().HasData(
-              new Admin { Id = 1, UserName = "Admin", Email = "BazzarStore_Admin@Gmail.com", Password = "Admin123" , ConfirmPassword = "Admin123" , PhoneNumber = "85212636" }
-             );
+            
 
-            modelBuilder.Entity<Company>().HasData(
-                  new Company { Id = 1, UserName = "Nike", Email = "Nikecompany@Gmail.com", Password = "Nike123", Address = "Oregon", PhoneNumber = "584632", CommercialRegistrationNumber = 123456789 },
-                  new Company { Id = 2, UserName = "IBM", Email = "IBMcompany@Gmail.com", Password = "IBM123", Address = "New York", PhoneNumber = "894201", CommercialRegistrationNumber = 987654321 }
+            modelBuilder.Entity<Prodect>().HasData(
+                  new Prodect { Id = 1, Name = "Nike", Price = 12.0, BarCode = 12345 , DiscountPrice = "0%" , Desciption = "584632", TodaysDeals = 'F' },
+                  new Prodect { Id = 2, Name = "IBM", Price = 11.3 , BarCode = 12346 , DiscountPrice = "15%" , Desciption = "894201", TodaysDeals = 'T' }
                   );
 
-            modelBuilder.Entity<Customer>().HasData(
-             new Customer { Id = 1, UserName = "Haneen", Email = "Haneen@Gmail.com", Password = "Haneen123", ConfirmPassword = "Haneen123", PhoneNumber = "2154563" },
-             new Customer { Id = 1, UserName = "Aladdin", Email = "Aladdin@Gmail.com", Password = "Aladdinn123", ConfirmPassword = "Aladdin123", PhoneNumber = "9876202" }
+            modelBuilder.Entity<Category>().HasData(
+             new Category { Id = 1, Name = "Haneen", Desciption = "Haneen@Gmail.com" },
+             new Category { Id = 1, Name = "Aladdin", Desciption = "Aladdin@Gmail.com" }
              );
 
 

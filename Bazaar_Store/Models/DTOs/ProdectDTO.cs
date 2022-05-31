@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bazaar_Store.Models
+namespace Bazaar_Store.Models.DTOs
 {
-    public class Prodect
+    public class ProdectDTO
     {
         public int Id { get; set; }
         [Required]
@@ -21,8 +21,5 @@ namespace Bazaar_Store.Models
         public string Desciption { get; set; }
         [Required]
         public Char TodaysDeals { get; set; }
-
-        
-
     }
 }
