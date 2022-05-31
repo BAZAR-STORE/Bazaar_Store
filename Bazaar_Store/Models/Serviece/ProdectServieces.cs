@@ -1,5 +1,6 @@
 ﻿using Bazaar_Store.Data;
 using Bazaar_Store.Models.DTOs;
+using Bazaar_Store.Models.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.Serviece
 {
-    public class ProdectServieces
+    public class ProdectServieces : IProdect
     {
         private readonly BazaarDbcontext _context;
 

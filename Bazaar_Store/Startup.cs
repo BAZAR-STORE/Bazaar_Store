@@ -30,10 +30,7 @@ namespace Bazaar_Store
         {
             services.AddMvc();
 
-            services.AddTransient<ICategory, CategoryServieces>();
-         //   services.AddTransient<ICategory, CategoryServieces>();
-            services.AddTransient<IProdect, ProdectServieces>();
-            services.AddControllers();
+                      services.AddControllers();
             
 
 
@@ -42,6 +39,9 @@ namespace Bazaar_Store
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+            services.AddTransient<ICategory, CategoryServieces>();
+            services.AddTransient<IProdect, ProdectServieces>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
