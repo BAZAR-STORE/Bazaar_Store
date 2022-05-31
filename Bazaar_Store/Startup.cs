@@ -1,4 +1,7 @@
 using Bazaar_Store.Data;
+using Bazaar_Store.Models.Interface;
+using Bazaar_Store.Models.Service;
+using Bazaar_Store.Models.Serviece;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,11 +29,19 @@ namespace Bazaar_Store
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+                      services.AddControllers();
+            
+
+
             services.AddDbContext<BazaarDbcontext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+            services.AddTransient<ICategory, CategoryServieces>();
+            services.AddTransient<IProdect, ProdectServieces>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

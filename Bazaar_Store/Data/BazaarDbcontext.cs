@@ -35,8 +35,8 @@ namespace Bazaar_Store.Data
                   );
 
             modelBuilder.Entity<Category>().HasData(
-             new Category { Id = 1, Name = "Haneen", Desciption = "Haneen@Gmail.com" },
-             new Category { Id = 1, Name = "Aladdin", Desciption = "Aladdin@Gmail.com" }
+             new Category { Id = 1, Name = "Shose", Desciption = "Haneen@Gmail.com" },
+             new Category { Id = 2, Name = "T-shirt", Desciption = "Aladdin@Gmail.com" }
              );
 
 
