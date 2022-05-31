@@ -18,6 +18,6 @@ namespace Bazaar_Store.Models
         [Required]
         public string ConfirmPassword { get; set; }
         [Required]
-        public long PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

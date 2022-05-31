@@ -18,7 +18,7 @@ namespace Bazaar_Store.Models
 
         public string Address { get; set; }
 
-        public long PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         [Required]
         public int CommercialRegistrationNumber { get; set; }
 
