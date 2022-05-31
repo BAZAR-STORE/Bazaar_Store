@@ -4,17 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bazaar_Store.Models
+namespace Bazaar_Store.Models.DTOs
 {
-    public class Feedback
+    public class CategoryDTO
     {
         public int Id { get; set; }
         [Required]
-        public int CustomerId { get; set; }
+        public string Name { get; set; }
         [Required]
-        public string FeedBack { get; set; }
-        [Required]
-        public double Rating { get; set; }
-
+        public string Desciption { get; set; }
+      
     }
 }
