@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.Service
 {
-    public class CategoryServieces : ICategory
+    public class CategoryServieces : ICompany
     {
 
         private readonly BazaarDbcontext _context;

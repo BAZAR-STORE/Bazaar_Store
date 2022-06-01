@@ -39,8 +39,8 @@ namespace Bazaar_Store
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
-            services.AddTransient<ICategory, CategoryServieces>();
-            services.AddTransient<IProdect, ProdectServieces>();
+            services.AddTransient<ICompany, CategoryServieces>();
+            services.AddTransient<IProduct, ProductServieces>();
 
         }
 
@@ -57,6 +57,7 @@ namespace Bazaar_Store
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllerRoute("default", "{controller=Company}/{action=Index}");
             
         });
             app.UseStaticFiles();
