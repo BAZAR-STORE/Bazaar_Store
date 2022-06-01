@@ -50,6 +50,30 @@ namespace Bazaar_Store.Migrations
                             Id = 2,
                             Details = "roblox girl",
                             Name = "T-shirt"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Details = "Octa-core (1x2.84 GHz Kryo 585 & 3x2.42 GHz Kryo 585 & 4x1.8 GHz Kryo 585) , 6GB RAM , 128GB Storage",
+                            Name = "Tablet PC"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Details = "4-Cores Processor】 11th Generation Intel Core i5-1135G7, up to 4.2 GHz Turbo, 4 core, 8 thread, 8MB",
+                            Name = "T-Barebone"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Details = "L.A. Girl, Pro Eyeshadow Palette, Mastery, 1.23 oz (35 g)",
+                            Name = "Eyeshadow"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Details = "L'Oreal, Infallible 24H Fresh Wear, Foundation In A Powder, 120 Vanilla, 0.31 oz (9 g)",
+                            Name = "T-Foundation"
                         });
                 });
 
@@ -83,7 +107,31 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 2,
                             Description = "is a Spanish clothing and accessories retailer based in Narón (A Coruña), Galicia founded in 1991.[1] It is part of Inditex, owner of Zara and Bershka brands. The name came from the word pull like pull from the shelf and bear",
-                            Name = "Pull&Bear"
+                            Name = "IBM"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = " HP, was an American multinational information technology company headquartered in Palo Alto, California. ",
+                            Name = "HP"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = " eyeliner, mascara, primer, lipstick, lipgloss, blush, foundation,",
+                            Name = "L.A. Girl"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "L'Oréal S.A. (French pronunciation: ​[lɔʁeal]) is a French personal care company headquartered in Clichy, Hauts-de-Seine[2] with a registered office in Paris",
+                            Name = "L'Oreal"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Dell is an American technology company that develops, sells, repairs, and supports computers and related products and services, and is owned by its parent company of Dell Technologies",
+                            Name = "Deall"
                         });
                 });
 
@@ -142,9 +190,49 @@ namespace Bazaar_Store.Migrations
                             BarCode = 4534676,
                             Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436",
                             DiscountPrice = "15%",
-                            Name = "IBM Motherboard",
+                            Name = "IBM",
                             Price = 11.300000000000001,
                             TodaysDeals = "T"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BarCode = 985012,
+                            Description = "easy to use",
+                            DiscountPrice = "5%",
+                            Name = "HP",
+                            Price = 635.89999999999998,
+                            TodaysDeals = "F"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BarCode = 1403875,
+                            Description = "Safe on the skin",
+                            DiscountPrice = "0%",
+                            Name = "L.A. Girl",
+                            Price = 9.0999999999999996,
+                            TodaysDeals = "T"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BarCode = 235752,
+                            Description = "Safe on the skin",
+                            DiscountPrice = "50%",
+                            Name = "L'Oreal",
+                            Price = 25.600000000000001,
+                            TodaysDeals = "T"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BarCode = 78413566,
+                            Description = "Comfort for running",
+                            DiscountPrice = "30%",
+                            Name = "Deall",
+                            Price = 400.5,
+                            TodaysDeals = "F"
                         });
                 });
 
