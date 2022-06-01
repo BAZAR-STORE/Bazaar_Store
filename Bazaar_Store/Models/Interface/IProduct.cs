@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.Interface
 {
-    public interface ICategory
+    public interface IProduct
     {
-        Task<List<CategoryDTO>> GetCategories();
+        Task<List<ProdectDTO>> GetProducts();
 
-        Task<CategoryDTO> GetCategory(int Id);
+        Task<ProdectDTO> GetProduct(int Id);
     }
 }

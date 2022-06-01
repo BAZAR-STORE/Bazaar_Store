@@ -1,0 +1,24 @@
+﻿@using Bazaar_Store.Models
+@model List<Company>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<ul>
+        @foreach(var item in Model)
+    {
+        <li>
+            <a asp-controller="Home" asp-action="Index" asp-route-name=@item.Name asp-route-Price=@item.Desciption>@item.Name</a>
+           <!-- <a href="/Home/Index/?name=@item.Name&Price=@item.Desciption">@item.Name</a> -->
+        </li>
+        <!--<li>Name: @item.Name , Price: @item.Desciption</li>-->
+
+    }
+
+</ul>
+            <a src="Add.cshtml" asp-action="Add" >Add</a>
+

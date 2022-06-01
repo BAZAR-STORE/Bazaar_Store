@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.Serviece
 {
-    public class ProdectServieces : IProdect
+    public class ProductServieces : IProduct
     {
         private readonly BazaarDbcontext _context;
 
-        public ProdectServieces(BazaarDbcontext context)
+        public ProductServieces(BazaarDbcontext context)
         {
             _context = context;
         }
 
 
-        public async Task<ProdectDTO> GetProdect(int Id) 
+        public async Task<ProdectDTO> GetProduct(int Id) 
         {
-            return await _context.Prodects.Select(prodect => new ProdectDTO
+            return await _context.Products.Select(prodect => new ProdectDTO
             {
                 Id = prodect.Id,
                 Name = prodect.Name,
@@ -34,9 +34,9 @@ namespace Bazaar_Store.Models.Serviece
             }).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public async Task<List<ProdectDTO>> GetProdects() 
+        public async Task<List<ProdectDTO>> GetProducts() 
         {
-            return await _context.Prodects.Select(prodect => new ProdectDTO
+            return await _context.Products.Select(prodect => new ProdectDTO
             {
                 Id = prodect.Id,
                 Name = prodect.Name,

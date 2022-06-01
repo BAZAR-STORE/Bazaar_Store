@@ -1,0 +1,14 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Bazaar_Store.Models.Company
+<h3>Add a new Company</h3>
+
+<form asp-controller="Home" asp-action="Add" method="post">
+    <partial name="_CompanyFields"></partial>
+
+        <button type="submit">
+            add a Company
+        </button>
+</form>
+ <a src="Update.cshtml" asp-action="Update" >Update</a>
+
+<div asp-validation-summary="All"></div>
