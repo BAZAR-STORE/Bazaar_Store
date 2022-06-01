@@ -20,7 +20,7 @@ namespace Bazaar_Store.Contollers
         public IActionResult Index(string name,string description)
         {
 
-            Company Categories = new Company {Name = name,Desciption = description };
+            Company Categories = new Company {Name = name,Description = description };
             return View(Categories);
         }
         public IActionResult Add()
@@ -33,7 +33,7 @@ namespace Bazaar_Store.Contollers
         {
             if (ModelState.IsValid)
             {
-                return Content("You have successfully added a Category ! name: " + categories.Name + " Job: " + categories.Desciption);
+                return Content("You have successfully added a Category ! name: " + categories.Name + " Job: " + categories.Description);
             }
             return View(categories);
 
@@ -42,7 +42,7 @@ namespace Bazaar_Store.Contollers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Company>>> Companies()
         {
-            var companies = await _company.GetCategories();
+            var companies = await _company.GetCompanies();
             return Ok(companies);
         }
     }

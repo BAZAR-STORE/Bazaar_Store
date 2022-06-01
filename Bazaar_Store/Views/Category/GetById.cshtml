@@ -1,0 +1,19 @@
+﻿
+@model Bazaar_Store.Models.Category
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "GetById";
+}
+
+<h1>GetById</h1>
+
+<<h1>@Model.Name </h1>
+<h2>Description: @Model.Details </h2>
+
+@*@foreach (var item in Model.ProdectList)
+    {
+        <h3>Name: @item.Name</h3>
+        <h3> Description: @item.Details</h3>
+        <h3> Id: @item.Id</h3>
+    }*@

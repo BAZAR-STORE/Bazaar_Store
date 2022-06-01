@@ -12,10 +12,10 @@
         @foreach(var item in Model)
     {
         <li>
-            <a asp-controller="Home" asp-action="Index" asp-route-name=@item.Name asp-route-Price=@item.Desciption>@item.Name</a>
-           <!-- <a href="/Home/Index/?name=@item.Name&Price=@item.Desciption">@item.Name</a> -->
+            <a asp-controller="Home" asp-action="Index" asp-route-name=@item.Name asp-route-Price=@item.Description>@item.Name</a>
+           <!-- <a href="/Home/Index/?name=@item.Name&Price=@item.Description">@item.Name</a> -->
         </li>
-        <!--<li>Name: @item.Name , Price: @item.Desciption</li>-->
+        <!--<li>Name: @item.Name , Price: @item.Description</li>-->
 
     }
 

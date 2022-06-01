@@ -18,7 +18,7 @@ namespace Bazaar_Store.Models
         [Required]
         public string DiscountPrice { get; set; }
         [Required]
-        public string Desciption { get; set; }
+        public string Description { get; set; }
         [Required]
         public Char TodaysDeals { get; set; }
 

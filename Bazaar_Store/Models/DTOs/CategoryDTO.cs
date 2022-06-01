@@ -12,7 +12,7 @@ namespace Bazaar_Store.Models.DTOs
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Desciption { get; set; }
+        public string Details { get; set; }
       
     }
 }

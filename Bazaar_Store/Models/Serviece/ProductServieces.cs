@@ -19,33 +19,73 @@ namespace Bazaar_Store.Models.Serviece
         }
 
 
-        public async Task<ProdectDTO> GetProduct(int Id) 
+                public async Task<Product> Create(Product product)
         {
-            return await _context.Products.Select(prodect => new ProdectDTO
+            Product Newprodect = new Product
             {
-                Id = prodect.Id,
-                Name = prodect.Name,
-                BarCode = prodect.BarCode,
-                Price = prodect.Price,
-                Desciption = prodect.Desciption,
-                TodaysDeals = prodect.TodaysDeals,
-               
+                Id = product.Id,
+                Name = product.Name,
+                BarCode = product.BarCode,
+                Price = product.Price,
+                Description = product.Description,
+                TodaysDeals = product.TodaysDeals,
+            };
+            _context.Entry(Newprodect).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return product;
+        }
+
+        public async Task Delete(int Id)
+        {
+            Product product = await _context.Products.FindAsync(Id);
+            _context.Entry(product).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Product> GetProdect(int Id)
+        {
+            return await _context.Products.Select(product => new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                BarCode = product.BarCode,
+                Price = product.Price,
+                Description = product.Description,
+                TodaysDeals = product.TodaysDeals,
+
 
             }).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public async Task<List<ProdectDTO>> GetProducts() 
+        public async Task<List<Product>> GetProdects()
         {
-            return await _context.Products.Select(prodect => new ProdectDTO
+            return await _context.Products.Select(product => new Product
             {
-                Id = prodect.Id,
-                Name = prodect.Name,
-                BarCode = prodect.BarCode,
-                Price = prodect.Price,
-                Desciption = prodect.Desciption,
-                TodaysDeals = prodect.TodaysDeals,
+                Id = product.Id,
+                Name = product.Name,
+                BarCode = product.BarCode,
+                Price = product.Price,
+                Description = product.Description,
+                TodaysDeals = product.TodaysDeals,
 
             }).ToListAsync();
+        }
+
+        public async Task<Product> UpdateProduct(int id, Product product)
+        {
+            Product Newprodect = new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                BarCode = product.BarCode,
+                Price = product.Price,
+                Description = product.Description,
+                TodaysDeals = product.TodaysDeals,
+
+            };
+            _context.Entry(Newprodect).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return product;
         }
     }
 }

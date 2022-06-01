@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.Service
 {
-    public class CategoryServieces : ICompany
+    public class CategoryServieces : ICategory
     {
 
         private readonly BazaarDbcontext _context;
@@ -20,28 +20,58 @@ namespace Bazaar_Store.Models.Service
         }
 
 
-        public async Task<CategoryDTO> GetCategory(int Id)
+        public async Task<Category> GetCategory(int Id)
         {
-            return await _context.Categories.Select(category => new CategoryDTO
+            return await _context.Categories.Select(category => new Category
             {
                 Id = category.Id,
                 Name = category.Name,
-                Desciption = category.Desciption,
-               
+                Details = category.Details,
+
 
 
             }).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public async Task<List<CategoryDTO>> GetCategories() 
+        public async Task<List<Category>> GetCategories()
         {
-            return await _context.Categories.Select(category => new CategoryDTO
+            return await _context.Categories.Select(category => new Category
             {
                 Id = category.Id,
                 Name = category.Name,
-                Desciption = category.Desciption,
+                Details = category.Details,
 
             }).ToListAsync();
         }
+
+        public async Task<Category> Create(Category category)
+        {
+
+            _context.Entry(category).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return category;
+        }
+
+        public async Task Delete(int Id)
+        {
+            Category category = await _context.Categories.FindAsync(Id);
+            _context.Entry(category).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Category> UpdateCategory(int Id, Category category)
+        {
+            Category Newcategory = new Category
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Details = category.Details,
+            };
+            _context.Entry(Newcategory).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return category;
+        }
+
+       
     }
 }
