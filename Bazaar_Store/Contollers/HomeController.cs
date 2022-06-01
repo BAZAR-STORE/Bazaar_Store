@@ -12,11 +12,11 @@ namespace Bazaar_Store.Contollers
        
         public IActionResult Index(string name , string desciption)
         {
-            Company category = new Company {Name = name,Desciption= desciption };
+            Company category = new Company {Name = name,Description= desciption };
             return View(category);
         }public IActionResult Category()
         {
-            Company category = new Company {Name = "baby", Desciption= "desciption " };
+            Company category = new Company {Name = "baby", Description= "desciption " };
             return View(category);
         }
         public IActionResult Add()
@@ -28,7 +28,7 @@ namespace Bazaar_Store.Contollers
         {
             if (ModelState.IsValid)
             {
-                return Content("You have successfully added a company ! name: " + company.Name + " Desciption: " + company.Desciption);
+                return Content("You have successfully added a company ! name: " + company.Name + " Desciption: " + company.Description);
             }
             return View(company);
 
@@ -36,17 +36,17 @@ namespace Bazaar_Store.Contollers
         public IActionResult List()
         {
             List<Company> company = new List<Company>();
-            company.Add(new Company { Name = "fan", Desciption = "dfjzvxjf" });
-            company.Add(new Company { Name = "laptop", Desciption = "kldhfbzvxh" });
-            company.Add(new Company { Name = "keyboard", Desciption = ",mfdbvxjhds" });
-            company.Add(new Company { Name = "headphone", Desciption = "sdvzfdf" });
-            company.Add(new Company { Name = "mouse", Desciption = "khdbfv" });
+            company.Add(new Company { Name = "fan", Description = "dfjzvxjf" });
+            company.Add(new Company { Name = "laptop", Description = "kldhfbzvxh" });
+            company.Add(new Company { Name = "keyboard", Description = ",mfdbvxjhds" });
+            company.Add(new Company { Name = "headphone", Description = "sdvzfdf" });
+            company.Add(new Company { Name = "mouse", Description = "khdbfv" });
             return View(company);
         }
         public IActionResult Update(/*id*/)    // What about the Id ?!
         {
             // retrieve the item from the database and pass it to the view
-            Company company = new Company { Name = "added product", Desciption = "Update " };
+            Company company = new Company { Name = "added product", Description = "Update " };
             return View(company);
         }
 

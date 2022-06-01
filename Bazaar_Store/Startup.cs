@@ -39,8 +39,9 @@ namespace Bazaar_Store
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
-            services.AddTransient<ICompany, CategoryServieces>();
+            services.AddTransient<ICompany, CompanyServieces>();
             services.AddTransient<IProduct, ProductServieces>();
+            services.AddTransient<ICategory, CategoryServieces>();
 
         }
 

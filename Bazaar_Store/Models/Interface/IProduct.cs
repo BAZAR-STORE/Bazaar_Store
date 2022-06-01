@@ -8,8 +8,10 @@ namespace Bazaar_Store.Models.Interface
 {
     public interface IProduct
     {
-        Task<List<ProdectDTO>> GetProducts();
-
-        Task<ProdectDTO> GetProduct(int Id);
+        Task<Product> Create(Product product);
+        Task<List<Product>> GetProdects();
+        Task Delete(int Id);
+        Task<Product> GetProdect(int Id);
+        Task<Product> UpdateProduct(int Id, Product product);
     }
 }

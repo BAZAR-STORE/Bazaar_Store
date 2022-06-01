@@ -8,8 +8,12 @@ namespace Bazaar_Store.Models.Interface
 {
     public interface ICompany
     {
-        Task<List<CategoryDTO>> GetCategories();
-
-        Task<CategoryDTO> GetCategory(int Id);
+       
+        Task<Company> Create(Company company);
+        Task<List<Company>> GetCompanies();
+        Task Delete(int Id);
+        Task<Company> GetCompanyt(int Id);
+        Task<Company> UpdateCompany(int Id, Company company);
     }
+
 }
