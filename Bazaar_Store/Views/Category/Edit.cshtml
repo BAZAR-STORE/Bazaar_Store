@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Bazaar_Store.Models.Category
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    
+    
+        <label asp-for="Details" class="control-label"></label>
+        <input asp-for="Details" class="form-control" />
+        <span asp-validation-for="Details" class="text-danger"></span>
+    
+        <input type="submit" value="Save" class="btn btn-primary" />
+    
+</form>
+
+<a asp-action="Index">Back to Category</a>
