@@ -24,7 +24,7 @@ namespace Bazaar_Store.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
 
 
             modelBuilder.Entity<Product>().HasData(
