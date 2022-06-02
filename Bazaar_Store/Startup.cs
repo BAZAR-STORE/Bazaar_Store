@@ -59,6 +59,7 @@ namespace Bazaar_Store
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Company}/{action=Index}");
+                endpoints.MapControllerRoute("default", "{controller=Category}/{action=Index}");
             
         });
             app.UseStaticFiles();
