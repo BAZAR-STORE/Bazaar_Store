@@ -42,17 +42,53 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
-        public IActionResult Edit()
-        {
+        //public async Task<IActionResult> Edit(int Id, Category category)
+        //{
+        //    Category Newcategory = await _category.UpdateCategory(Id);
+        //    return View(Newcategory);
+        //}
 
-            return View();
+
+        //public async Task<IActionResult> Edit(Category category)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _category.Edit(category.Id, category);
+        //        return Content("You have successfully edited data");
+        //    }
+        //    return View(category);
+
+        //}
+
+        public async Task<IActionResult> Edit(int Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var category = await _category.GetCategory(Id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
         }
 
-
-        public IActionResult Delete()
+        public async Task<IActionResult> Delete(int Id)
         {
+            if (Id == null)
+            {
+                return NotFound();
+            }
 
-            return View();
+            var category = await _category.GetCategory(Id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
         }
     }
 }
