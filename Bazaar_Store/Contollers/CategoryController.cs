@@ -35,6 +35,17 @@ namespace Bazaar_Store.Contollers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                var newCategory = await _category.Create(category);
+                return RedirectToAction("Index");
+            }
+            return View(category);
+        }
+
         public async Task<IActionResult> GetById(int Id)
         {
             Category category = await _category.GetCategory(Id);
@@ -42,23 +53,7 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
-        //public async Task<IActionResult> Edit(int Id, Category category)
-        //{
-        //    Category Newcategory = await _category.UpdateCategory(Id);
-        //    return View(Newcategory);
-        //}
-
-
-        //public async Task<IActionResult> Edit(Category category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _category.Edit(category.Id, category);
-        //        return Content("You have successfully edited data");
-        //    }
-        //    return View(category);
-
-        //}
+      
 
         public async Task<IActionResult> Edit(int Id)
         {
@@ -71,6 +66,17 @@ namespace Bazaar_Store.Contollers
             if (category == null)
             {
                 return NotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                var updateCategory = await _category.UpdateCategory(category.Id, category);
+                return RedirectToAction("Index");
             }
             return View(category);
         }
@@ -89,6 +95,13 @@ namespace Bazaar_Store.Contollers
             }
 
             return View(category);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int Id)
+        {
+            await _category.Delete(Id);
+            return RedirectToAction("Index");
         }
     }
 }
