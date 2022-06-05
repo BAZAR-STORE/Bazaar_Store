@@ -2,7 +2,7 @@
 
 namespace Bazaar_Store.Migrations
 {
-    public partial class Table1 : Migration
+    public partial class AddTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

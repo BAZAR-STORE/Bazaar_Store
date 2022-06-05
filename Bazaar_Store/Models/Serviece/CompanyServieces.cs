@@ -1,4 +1,6 @@
-﻿using Bazaar_Store.Models.Interface;
+﻿using Bazaar_Store.Data;
+using Bazaar_Store.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,12 @@ namespace Bazaar_Store.Models.Serviece
 {
     public class CompanyServieces : ICompany
     {
+        private readonly BazaarDbcontext _context;
+
+        public CompanyServieces(BazaarDbcontext context)
+        {
+            _context = context;
+        }
         public Task<Company> Create(Company company)
         {
             throw new NotImplementedException();
@@ -18,14 +26,28 @@ namespace Bazaar_Store.Models.Serviece
             throw new NotImplementedException();
         }
 
-        public Task<List<Company>> GetCompanies()
+        public async Task<List<Company>> GetCompanies()
         {
-            throw new NotImplementedException();
+            return await _context.Companies.Select(company => new Company
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Description = company.Description,
+
+            }).ToListAsync();
         }
 
-        public Task<Company> GetCompanyt(int Id)
+        public async Task<Company> GetCompany(int Id)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.Select(company => new Company
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Description = company.Description
+
+
+
+            }).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
         public Task<Company> UpdateCompany(int Id, Company company)

@@ -1,10 +1,44 @@
-﻿@model Bazaar_Store.Models.Company
-
+﻿@model IEnumerable<Bazaar_Store.Models.Company>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>company page</h1>
-<h2>Welcome to Bazaar Store</h2>
-<h4>This is @Model.Name and it's @Model.Description</h4>
-            <a src="List.cshtml" asp-action="List" >list of company</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a src="Update.cshtml" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                    <a src="Add.cshtml" asp-action="Add">Create</a>
+                    <a src="Delete.cshtml" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

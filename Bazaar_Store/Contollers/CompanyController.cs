@@ -17,10 +17,10 @@ namespace Bazaar_Store.Contollers
             _company = company;
         }
 
-        public IActionResult Index(string name,string description)
+        public async Task<IActionResult> Index()
         {
 
-            Company Companies = new Company {Name = name,Description = description };
+           List< Company> Companies = await _company.GetCompanies();
             return View(Companies);
         }
        
