@@ -1,9 +1,10 @@
 ﻿using Bazaar_Store.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bazaar_Store.Data
 {
-    public class BazaarDbcontext : DbContext
+    public class BazaarDbcontext : IdentityDbContext<user>
     {
 
 
@@ -55,7 +56,7 @@ namespace Bazaar_Store.Data
 
             );
 
-
+          
         }
     }
 }
