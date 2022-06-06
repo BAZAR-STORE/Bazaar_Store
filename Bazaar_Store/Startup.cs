@@ -1,18 +1,15 @@
 using Bazaar_Store.Data;
+using Bazaar_Store.Models;
 using Bazaar_Store.Models.Interface;
 using Bazaar_Store.Models.Service;
 using Bazaar_Store.Models.Serviece;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bazaar_Store
 {
@@ -30,11 +27,12 @@ namespace Bazaar_Store
         {
             services.AddMvc();
 
-                      services.AddControllers();
-            
+            services.AddControllers();
 
 
-            services.AddDbContext<BazaarDbcontext>(options => {
+
+            services.AddDbContext<BazaarDbcontext>(options =>
+            {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
@@ -42,11 +40,23 @@ namespace Bazaar_Store
             services.AddTransient<ICompany, CompanyServieces>();
             services.AddTransient<IProduct, ProductServieces>();
             services.AddTransient<ICategory, CategoryServieces>();
+            services.AddTransient<IUserService, IdentityuserServices>();
 
+
+            services.AddIdentity<user, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                // There are other options like this
+            })
+             .AddEntityFrameworkStores<BazaarDbcontext>();
+            services.AddDbContext<BazaarDbcontext>(options => {
+                string connectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(connectionString);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -60,8 +70,8 @@ namespace Bazaar_Store
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Company}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Category}/{action=Index}");
-            
-        });
+
+            });
             app.UseStaticFiles();
         }
     }
