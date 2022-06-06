@@ -1,7 +1,9 @@
-﻿using Bazaar_Store.Models.DTOs;
+﻿using Bazaar_Store.Models;
+using Bazaar_Store.Models.DTOs;
 using Bazaar_Store.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Bazaar_Store.Contollers
@@ -13,13 +15,20 @@ namespace Bazaar_Store.Contollers
         {
             _userService = userService;
         }
+        public IActionResult List()
+        {
+            List<User> Users = new List<User>();
+
+
+            return View(Users);
+        }
 
         public IActionResult Index()
         {
             return View();
         }
         [HttpPost("Register")]
-        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterUser data)
+        public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterUser data)
         {
             try
             {

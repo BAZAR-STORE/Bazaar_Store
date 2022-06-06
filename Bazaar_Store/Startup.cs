@@ -43,7 +43,7 @@ namespace Bazaar_Store
             services.AddTransient<IUserService, IdentityuserServices>();
 
 
-            services.AddIdentity<user, IdentityRole>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 // There are other options like this

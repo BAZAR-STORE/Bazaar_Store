@@ -1,10 +1,13 @@
 ﻿using Bazaar_Store.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace Bazaar_Store.Data
 {
-    public class BazaarDbcontext : IdentityDbContext<user>
+    public class BazaarDbcontext : IdentityDbContext<User>
     {
 
 
@@ -56,7 +59,37 @@ namespace Bazaar_Store.Data
 
             );
 
-          
+            SeedRoles(modelBuilder, "administrator", "create", "update", "delete");
+            SeedRoles(modelBuilder, "editor", "create", "update");
+            SeedRoles(modelBuilder, "user", "create");
+
+
+        }
+
+        private int id = 1;
+        private void SeedRoles(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+
+            var RoleClaims = permissions.Select(permission =>
+            new IdentityRoleClaim<string>
+            {
+                Id = id++,
+                RoleId = role.Id,
+                ClaimType = "permissions",
+                ClaimValue = permission
+            }
+            ).ToArray();
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(RoleClaims);
         }
     }
 }

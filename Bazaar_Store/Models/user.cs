@@ -2,7 +2,7 @@
 
 namespace Bazaar_Store.Models
 {
-    public class user : IdentityUser
+    public class User : IdentityUser
     {
     }
 }
