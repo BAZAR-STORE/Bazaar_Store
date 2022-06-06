@@ -36,6 +36,21 @@ namespace Bazaar_Store.Contollers
             }
             return View();
         }
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserDTO>> SignUp(RegisterUser register)
+        {
+            var user = await _IdentityuserServices.Register(register, this.ModelState);
+            if (ModelState.IsValid)
+            {
+                return Redirect("/");
+            }
+            return View();
+        }
 
         public async Task<ActionResult<UserDTO>> Authenticate(LoginDTO login)
         {

@@ -1,3 +1,4 @@
+
 using Bazaar_Store.Data;
 using Bazaar_Store.Models;
 using Bazaar_Store.Models.Interface;
@@ -53,6 +54,13 @@ namespace Bazaar_Store
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+            services.ConfigureApplicationCookie(option =>
+            {
+                option.AccessDeniedPath = "/Auth/Index";
+            });
+            services.AddAuthentication();
+            services.AddAuthorization();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +72,8 @@ namespace Bazaar_Store
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
