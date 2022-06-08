@@ -10,7 +10,7 @@ namespace Bazaar_Store.Models.Interface
     {
         public Task<UserDTO> Register(RegisterUser data, ModelStateDictionary modelState);
         public Task<UserDTO> Authenticate(string username, string password);
-        public Task<UserDTO> GetUser(ClaimsPrincipal principal);
+        
     }
 }
 
