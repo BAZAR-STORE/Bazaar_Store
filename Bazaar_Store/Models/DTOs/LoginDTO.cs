@@ -8,7 +8,11 @@ namespace Bazaar_Store.Models.DTOs
 {
     public class LoginDTO
     {
-        [Required]
+
+        [Required(ErrorMessage = "Enter UserName!")]
+        [Display(Name = "User Name")]
+        [MinLength(3)]
+       
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
