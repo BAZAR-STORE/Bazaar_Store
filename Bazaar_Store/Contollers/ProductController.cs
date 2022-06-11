@@ -1,6 +1,10 @@
-﻿using Bazaar_Store.Models;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Bazaar_Store.Models;
 using Bazaar_Store.Models.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +15,11 @@ namespace Bazaar_Store.Contollers
     public class ProductController : Controller
     {
         private IProduct _product;
-        public ProductController(IProduct product)
+        IConfiguration Configuration;
+        public ProductController(IProduct product, IConfiguration config)
         {
             _product = product;
+            Configuration = config; 
         }
 
         public async Task<IActionResult> Index()
@@ -29,20 +35,36 @@ namespace Bazaar_Store.Contollers
         }
 
 
-        public IActionResult Creat()
-        {
-
-            return View();
-        }
-
+       
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(Product product, IFormFile file)
         {
-            if (ModelState.IsValid)
+            BlobContainerClient container = new BlobContainerClient(Configuration.GetConnectionString("AzureBlob"), "images");
+            await container.CreateIfNotExistsAsync();
+            BlobClient blob = container.GetBlobClient(file.FileName);
+            using var stream = file.OpenReadStream();
+
+            BlobUploadOptions options = new BlobUploadOptions()
             {
-                var newProduct = await _product.Create(product);
-                return RedirectToAction("Index");
+                HttpHeaders = new BlobHttpHeaders() { ContentType = file.ContentType }
+            };
+
+
+            if (!blob.Exists())
+            {
+                await blob.UploadAsync(stream, options);
             }
+
+            product.Url = blob.Uri.ToString();
+
+            //Document document = new Document()
+            //{
+            //  PNmae = name,
+            //  Price = price,
+            //  Url = blob.Uri.ToString()
+            //};
+            stream.Close();
+            // Upload the file
             return View(product);
         }
 
@@ -103,5 +125,6 @@ namespace Bazaar_Store.Contollers
             await _product.Delete(Id);
             return RedirectToAction("Index");
         }
+
     }
 }

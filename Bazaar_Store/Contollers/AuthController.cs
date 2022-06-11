@@ -1,4 +1,5 @@
-﻿using Bazaar_Store.Models.DTOs;
+﻿using Bazaar_Store.Models;
+using Bazaar_Store.Models.DTOs;
 using Bazaar_Store.Models.Interface;
 using Bazaar_Store.Models.Serviece;
 using Microsoft.AspNetCore.Mvc;
@@ -60,6 +61,13 @@ namespace Bazaar_Store.Contollers
                 return RedirectToAction("Index");
             }
             return Redirect("/");
+        }
+        public IActionResult List()
+        {
+            List<User> Users = new List<User>();
+
+
+            return View(Users);
         }
     }
 }

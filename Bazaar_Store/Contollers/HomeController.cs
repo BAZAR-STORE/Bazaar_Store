@@ -10,10 +10,9 @@ namespace Bazaar_Store.Contollers
     public class HomeController : Controller
     {
        
-        public IActionResult Index(string name , string desciption)
+        public IActionResult Index( )
         {
-            Company category = new Company {Name = name,Description= desciption };
-            return View(category);
+            return View();
         }
     }
 }
