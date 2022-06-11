@@ -16,7 +16,7 @@
    
 </div>
 
-<form asp-controller="Product" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+<form asp-controller="Product" asp-action="Delete" method="post" asp-route-id="@Model.Id"  src="@Model.Url">
     <button type="submit"> Delete </button>
 
     <a asp-controller="Product" asp-action="Index"> Back to Product</a>

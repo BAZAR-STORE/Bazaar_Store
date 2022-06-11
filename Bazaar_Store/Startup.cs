@@ -50,10 +50,6 @@ namespace Bazaar_Store
                 // There are other options like this
             })
              .AddEntityFrameworkStores<BazaarDbcontext>();
-            services.AddDbContext<BazaarDbcontext>(options => {
-                string connectionString = Configuration.GetConnectionString("DefaultConnection");
-                options.UseSqlServer(connectionString);
-            });
             services.ConfigureApplicationCookie(option =>
             {
                 option.AccessDeniedPath = "/Auth/Index";

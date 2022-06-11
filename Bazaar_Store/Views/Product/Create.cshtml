@@ -1,42 +1,16 @@
-﻿@model Bazaar_Store.Models.Product
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    ViewData["Title"] = "Create";
-}
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Bazaar_Store.Models.Product
 
 
-
-<form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <label asp-for="Name" class="label-Name"></label>
-    <input asp-for="Name" class="form-control" />
-
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <label asp-for="BarCode" class="label-Details"></label>
-    <input asp-for="BarCode" class="form-control" />
-
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <label asp-for="Price" class="label-Details"></label>
-    <input asp-for="Price" class="form-control" />
-
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <label asp-for="DiscountPrice" class="label-Details"></label>
-    <input asp-for="DiscountPrice" class="form-control" />
-
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <label asp-for="Description" class="label-Details"></label>
-    <input asp-for="Description" class="form-control" />
-
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <label asp-for="TodaysDeals" class="label-Details"></label>
-    <input asp-for="TodaysDeals" class="form-control" />
-
-    
-
-    <input type="submit" value="Create" class="btnsubmit " />
+<form asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
+  <input asp-for="@Model.Name" name="name"/>
+  <input asp-for="@Model.Price" name="price" type="number"/>
+  <div><input type="file" name="file" /></div>
+  <button>Upload</button>
 </form>
 
-
-
-<a asp-action="Index">Back to Product</a>
-
+@if (@Model != null)
+{
+    <img src="@Model.Url" width=200/>
+<p>@Model.Name</p>
+}
