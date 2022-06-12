@@ -1,32 +1,55 @@
 ﻿<!DOCTYPE html>
+<style>
+    body {
+        background-color: rgb(245,245,245);
+    }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+
+     text-center {
+        border: 1px solid black;
+        padding: 10px;
+        width: 200px;
+        height: 200px;
+        text-align: justify;
+    }
+
+     display-4 {
+        border: 1px solid black;
+        padding: 10px;
+        width: 200px;
+        height: 200px;
+        text-align: justify;
+    }
+</style >
+
+    <html >
+    <head >
+    <meta name="viewport" content="width=device-width" / >
+    <title >@ViewBag.Title </title >
     <div class="text-center">
+       
+        <h1 class="display-4" style="color:darkgreen" text-l> Bazaar Store</h1>
 
-    <h1 class="display-4" style="color:darkgreen">Bazaar Store</h1>
-
-</div>
-
-
-    <div class="navbar">
-        <a href="Home" class="active">Home</a>
-        <a href="Company">Company</a>
-        <a href="Category">Category</a>
-        <a href="Auth">Join Us</a>
     </div>
-    <div class="Logo">
-    <img src="https://user-images.githubusercontent.com/98957434/171397452-39eb825b-1063-4f25-b75f-698514099e41.jpg" alt="Logo" width="150" height="150">
-</div>
 
-</head>
-<body>
 
-    <h1>Welcome To Bazaar Store</h1>
-    <div>
-        @RenderBody()
-    </div>
-</body>
-</html>
+    <div class="navbar" >
+    <a href="Home" class="active" > Home</a >
+    <a href="Company" > Company</a >
+    <a href="Category" > Category</a >
+    <a href="Auth" > Join Us</a >
+    </div >
+    <div class="Logo" >
+    <img src="https://user-images.githubusercontent.com/98957434/171397452-39eb825b-1063-4f25-b75f-698514099e41.jpg" alt="Logo" width="150" height="150" >
+    </div >
+
+    </head >
+    <body >
+
+    <h1 > Welcome To Bazaar Store</h1 >
+    <div >
+    @RenderBody()
+    </div >
+
+    </body >
+    </html >

@@ -22,13 +22,13 @@ namespace Bazaar_Store.Contollers
             return View();
         }
 
-        public IActionResult SignIn()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> SignIn(RegisterUser register)
+        public async Task<ActionResult<UserDTO>> Login(RegisterUser register)
         {
             var user = await _IdentityuserServices.Register(register, this.ModelState);
             if (ModelState.IsValid)
