@@ -2,6 +2,7 @@
 using Azure.Storage.Blobs.Models;
 using Bazaar_Store.Models;
 using Bazaar_Store.Models.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -29,13 +30,14 @@ namespace Bazaar_Store.Contollers
             return View(product);
         }
 
+        [Authorize(Roles = "administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
 
-       
+        [Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile file)
         {
@@ -55,7 +57,7 @@ namespace Bazaar_Store.Contollers
                 await blob.UploadAsync(stream, options);
             }
 
-            product.Url = blob.Uri.ToString();
+            product.URL = blob.Uri.ToString();
 
             //Document document = new Document()
             //{
@@ -76,7 +78,7 @@ namespace Bazaar_Store.Contollers
         }
 
 
-
+        [Authorize(Roles = "editor")]
         public async Task<IActionResult> Edit(int Id)
         {
             if (Id == null)
@@ -92,6 +94,7 @@ namespace Bazaar_Store.Contollers
             return View(product);
         }
 
+        [Authorize(Roles = "editor")]
         [HttpPost]
         public async Task<IActionResult> Edit(Product product)
         {
@@ -103,6 +106,7 @@ namespace Bazaar_Store.Contollers
             return View(product);
         }
 
+        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> Delete(int Id)
         {
             if (Id == null)
@@ -119,6 +123,7 @@ namespace Bazaar_Store.Contollers
             return View(product);
         }
 
+        [Authorize(Roles = "administrator")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int Id)
         {
