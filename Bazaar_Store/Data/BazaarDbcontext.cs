@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Bazaar_Store.Data
 {
-    public class BazaarDbcontext : IdentityDbContext<User>
+    public class BazaarDbcontext : IdentityDbContext<Admin>
     {
 
 
@@ -16,6 +16,7 @@ namespace Bazaar_Store.Data
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<User> User { get; set; }
 
 
 
@@ -58,6 +59,12 @@ namespace Bazaar_Store.Data
             new Category { Id = 6, Name = "T-Foundation", Details = "L'Oreal, Infallible 24H Fresh Wear, Foundation In A Powder, 120 Vanilla, 0.31 oz (9 g)" }
 
             );
+            modelBuilder.Entity<User>().HasData(
+               new User { Id = 1, Name = "Alaa", Age = 24 },
+               new User { Id = 2, Name = "Yahia", Age = 29 },
+               new User { Id = 3, Name = "Ola", Age = 31 },
+               new User { Id = 4, Name = "Bashar", Age = 35 }
+               );
 
             SeedRoles(modelBuilder, "administrator", "create", "update", "delete");
             SeedRoles(modelBuilder, "editor", "create", "update");

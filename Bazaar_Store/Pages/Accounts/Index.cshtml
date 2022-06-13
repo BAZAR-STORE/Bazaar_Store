@@ -1,0 +1,14 @@
+﻿@page
+@model Bazaar_Store.Pages.Accounts.IndexModel
+@{
+}
+<h2>And this is the oage I see using Razor Pages ! welcome to the site  </h2>
+
+@if(@Model.user != null)
+{
+    @foreach(var user in @Model.user)
+    {
+       @* <a asp-page="/accounts/the name of the page" asp-route-id="@person.Id" ></a>*@
+        <div>Name: @user.Name is @user.Age  $... </div>
+    }
+}

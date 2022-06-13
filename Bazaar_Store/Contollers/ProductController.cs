@@ -81,10 +81,7 @@ namespace Bazaar_Store.Contollers
         [Authorize(Roles = "editor")]
         public async Task<IActionResult> Edit(int Id)
         {
-            if (Id == null)
-            {
-                return NotFound();
-            }
+           
 
             var product = await _product.GetProdect(Id);
             if (product == null)
@@ -109,10 +106,7 @@ namespace Bazaar_Store.Contollers
         [Authorize(Roles = "administrator")]
         public async Task<IActionResult> Delete(int Id)
         {
-            if (Id == null)
-            {
-                return NotFound();
-            }
+           
 
             var product = await _product.GetProdect(Id);
             if (product == null)
