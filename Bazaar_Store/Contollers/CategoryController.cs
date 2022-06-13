@@ -1,5 +1,6 @@
 ﻿using Bazaar_Store.Models;
 using Bazaar_Store.Models.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,18 +24,14 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
+        [Authorize(Roles = "administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
 
-        public IActionResult Creat()
-        {
-
-            return View();
-        }
-
+        [Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
@@ -53,8 +50,8 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
-      
 
+        [Authorize(Roles = "editor")]
         public async Task<IActionResult> Edit(int Id)
         {
             if (Id == null)
@@ -70,6 +67,7 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
+        [Authorize(Roles = "editor")]
         [HttpPost]
         public async Task<IActionResult> Edit(Category category)
         {
@@ -81,6 +79,7 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
+        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> Delete(int Id)
         {
             if (Id == null)
@@ -97,6 +96,7 @@ namespace Bazaar_Store.Contollers
             return View(category);
         }
 
+        [Authorize(Roles = "administrator")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int Id)
         {

@@ -53,7 +53,7 @@ namespace Bazaar_Store.Models.Serviece
             if (result.Succeeded)
             {
                 IList<string> Roles = new List<string>();
-                Roles.Add("user");
+                Roles.Add("administrator");
                 await _userManager.AddToRolesAsync(user, Roles);
                 UserDTO userDto = new UserDTO
                 {
