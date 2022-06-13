@@ -17,7 +17,7 @@ namespace Bazaar_Store.Contollers
         }
         public IActionResult List()
         {
-            List<User> Users = new List<User>();
+            List<Admin> Users = new List<Admin>();
 
 
             return View(Users);

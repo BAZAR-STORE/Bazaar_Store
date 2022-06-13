@@ -11,9 +11,9 @@ namespace Bazaar_Store.Models.Serviece
 {
     public class IdentityuserServices : IUserService
     {
-        private UserManager<User> _userManager;
-        private SignInManager<User> _signInManager;
-        public IdentityuserServices(UserManager<User> manager ,SignInManager<User> SignInMngr)
+        private UserManager<Admin> _userManager;
+        private SignInManager<Admin> _signInManager;
+        public IdentityuserServices(UserManager<Admin> manager ,SignInManager<Admin> SignInMngr)
         {
             _userManager = manager;
             _signInManager = SignInMngr;
@@ -42,7 +42,7 @@ namespace Bazaar_Store.Models.Serviece
 
         public async Task<UserDTO> Register(RegisterUser data, ModelStateDictionary modelState)
         {
-            var user = new User
+            var user = new Admin
             {
                 UserName = data.Username,
                 Email = data.Email,

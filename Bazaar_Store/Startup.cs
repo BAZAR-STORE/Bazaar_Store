@@ -42,9 +42,10 @@ namespace Bazaar_Store
             services.AddTransient<IProduct, ProductServieces>();
             services.AddTransient<ICategory, CategoryServieces>();
             services.AddTransient<IUserService, IdentityuserServices>();
+            services.AddTransient<IUser, UsersService>();
 
 
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<Admin, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 // There are other options like this
@@ -73,7 +74,9 @@ namespace Bazaar_Store
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllerRoute("default", "{controller=Accounts}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Company}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Category}/{action=Index}");
 
