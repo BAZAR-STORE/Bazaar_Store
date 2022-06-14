@@ -38,7 +38,10 @@ namespace Bazaar_Store.Models.Serviece
             return null;
         }
 
-      
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
 
         public async Task<UserDTO> Register(RegisterUser data, ModelStateDictionary modelState)
         {
