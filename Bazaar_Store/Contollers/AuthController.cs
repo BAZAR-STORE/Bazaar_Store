@@ -27,6 +27,11 @@ namespace Bazaar_Store.Contollers
             return View();
         }
 
+        public async Task Logout()
+        {
+            await _IdentityuserServices.Logout();
+        }
+
         [HttpPost]
         public async Task<ActionResult<UserDTO>> Login(RegisterUser register)
         {
