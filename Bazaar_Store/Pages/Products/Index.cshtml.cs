@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bazaar_Store.Models;
+using Bazaar_Store.Models.DTOs;
 using Bazaar_Store.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,11 +18,14 @@ namespace Bazaar_Store.Pages.Product
         {
             _category = service;
         }
-        public Category categories { get; set; }
+        [BindProperty]
+        public CategoryDTO categories { get; set; }
+        public List<ProductDTO> products { get; set; }
 
         public async Task OnGet(int id)
         {
-            categories = await _category.GetCategory(id);
+            CategoryDTO category = await _category.GetCategory(id);
+            products = category.ProdectList;
         }
     }
 }

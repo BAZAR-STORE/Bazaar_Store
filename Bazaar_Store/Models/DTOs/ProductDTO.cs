@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.DTOs
 {
-    public class ProdectDTO
+    public class ProductDTO
     {
         public int Id { get; set; }
         [Required]
@@ -18,8 +18,11 @@ namespace Bazaar_Store.Models.DTOs
         [Required]
         public string DiscountPrice { get; set; }
         [Required]
-        public string Desciption { get; set; }
+        public string Description { get; set; }
         [Required]
         public Char TodaysDeals { get; set; }
+        public string URL { get; set; }
+        public string CategoryName { get; set; }
+
     }
 }

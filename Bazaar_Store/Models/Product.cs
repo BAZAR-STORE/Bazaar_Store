@@ -22,6 +22,7 @@ namespace Bazaar_Store.Models
         [Required]
         public Char TodaysDeals { get; set; }
         public string URL { get; set; }
+        public string CategoryName { get; set; }
 
 
     }
