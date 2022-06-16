@@ -13,6 +13,7 @@ namespace Bazaar_Store.Models.DTOs
         public string Name { get; set; }
         [Required]
         public string Details { get; set; }
-      
+        public List<ProductDTO> ProdectList { get; set; }
+
     }
 }

@@ -20,9 +20,9 @@ namespace Bazaar_Store.Models.Service
         }
 
 
-        public async Task<Category> GetCategory(int Id)
+        public async Task<CategoryDTO> GetCategory(int Id)
         {
-            return await _context.Categories.Select(category => new Category
+            return await _context.Categories.Select(category => new CategoryDTO
             {
                 Id = category.Id,
                 Name = category.Name,

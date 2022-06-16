@@ -27,7 +27,8 @@ namespace Bazaar_Store
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
             services.AddControllers();
 
 
@@ -71,7 +72,7 @@ namespace Bazaar_Store
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
@@ -81,7 +82,9 @@ namespace Bazaar_Store
                 endpoints.MapControllerRoute("default", "{controller=Category}/{action=Index}");
 
             });
+
             app.UseStaticFiles();
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bazaar_Store.Models;
+using Bazaar_Store.Models.DTOs;
 using Bazaar_Store.Models.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ namespace Bazaar_Store.Contollers
 
         public async Task<IActionResult> GetById(int Id)
         {
-            Category category = await _category.GetCategory(Id);
+            CategoryDTO category = await _category.GetCategory(Id);
 
             return View(category);
         }
