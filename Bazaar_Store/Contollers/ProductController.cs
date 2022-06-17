@@ -75,9 +75,9 @@ namespace Bazaar_Store.Contollers
             return View(product);
 
         }
-        public async Task<ActionResult<ProductDTO>> Details(int id)
+        public async Task<ActionResult<Product>> Details(int id)
         {
-            ProductDTO product = await _product.GetProdect(id);
+            Product product = await _product.GetProdect(id);
 
             return View(product);
         }

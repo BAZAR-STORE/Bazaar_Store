@@ -73,9 +73,9 @@ namespace Bazaar_Store.Models.Serviece
                     await _context.SaveChangesAsync();
                 }
 
-                public async Task<ProductDTO> GetProdect(int Id)
+                public async Task<Product> GetProdect(int Id)
                 {
-                    return await _context.Products.Select(product => new ProductDTO
+                    return await _context.Products.Select(product => new Product
                     {
                         Id = product.Id,
                         Name = product.Name,
