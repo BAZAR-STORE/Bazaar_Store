@@ -9,9 +9,9 @@ namespace Bazaar_Store.Models.Interface
    public interface ICategory
     {
         Task<Category> Create(Category category);
-        Task<List<CategoryDTO>> GetCategories();
+        Task<List<Category>> GetCategories();
         Task Delete(int Id);
-        Task<CategoryDTO> GetCategory(int Id);
+        Task<Category> GetCategory(int Id);
         Task<Category> UpdateCategory(int Id, Category category);
     }
 }

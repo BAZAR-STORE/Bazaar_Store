@@ -18,14 +18,10 @@ namespace Bazaar_Store.Pages.Product
         {
             _category = service;
         }
-        [BindProperty]
-        public CategoryDTO categories { get; set; }
-        public List<ProductDTO> products { get; set; }
-
+        public Category categories { get; set; }
         public async Task OnGet(int id)
         {
-            CategoryDTO category = await _category.GetCategory(id);
-            products = category.ProdectList;
+            categories = await _category.GetCategory(id);
         }
     }
 }
