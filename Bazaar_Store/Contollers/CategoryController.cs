@@ -20,7 +20,7 @@ namespace Bazaar_Store.Contollers
         }
         public async Task<IActionResult> Index()
         {
-            List<CategoryDTO> category = await _category.GetCategories();
+            List<Category> category = await _category.GetCategories();
 
             return View(category);
         }
@@ -43,19 +43,19 @@ namespace Bazaar_Store.Contollers
             }
             return View(category);
         }
-        public async Task<ActionResult<CategoryDTO>> Details(int id)
+        public async Task<ActionResult<Category>> Details(int id)
         {
-            CategoryDTO category = await _category.GetCategory(id);
+            Category category = await _category.GetCategory(id);
 
             return View(category);
         }
 
-        //public async Task<IActionResult> GetById(int Id)
-        //{
-        //    CategoryDTO category = await _category.GetCategory(Id);
+        public async Task<IActionResult> GetById(int Id)
+        {
+            Category category = await _category.GetCategory(Id);
 
-        //    return View(category);
-        //}
+            return View(category);
+        }
 
 
         [Authorize(Roles = "editor")]

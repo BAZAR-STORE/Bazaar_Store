@@ -1,4 +1,21 @@
 ﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model Bazaar_Store.Pages.Product.CategoryModel
 @{
+}
+<h2>Welcome Back To Our Store</h2>
+
+@if (Model.categories != null)
+{
+    foreach (var category in Model.categories)
+    {
+        <tr>
+            <td>
+                <a asp-page="/Products/Products" asp-route-id="@category.Id">
+                    @category.Id @category.Name
+                </a>
+            </td>
+        </tr>
+
+    }
 }

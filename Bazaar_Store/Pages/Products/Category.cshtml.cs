@@ -15,7 +15,7 @@ namespace Bazaar_Store.Pages.Product
         private ICategory CategoryServieces;
 
         [BindProperty]
-        public List<CategoryDTO> categories { get; set; }
+        public List<Category> categories { get; set; }
 
         public CategoryModel(ICategory service)
         {

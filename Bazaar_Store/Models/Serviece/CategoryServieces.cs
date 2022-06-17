@@ -20,15 +20,15 @@ namespace Bazaar_Store.Models.Service
         }
 
 
-        public async Task<CategoryDTO> GetCategory(int id)
+        public async Task<Category> GetCategory(int id)
         {
-            return await _context.Categories.Select(category => new CategoryDTO
+            return await _context.Categories.Select(category => new Category
             {
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
                
-                ProdectList = category.ProdectList.Select(p => new ProductDTO
+                ProdectList = category.ProdectList.Select(p => new Product
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -40,14 +40,14 @@ namespace Bazaar_Store.Models.Service
             }).FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<List<CategoryDTO>> GetCategories()
+        public async Task<List<Category>> GetCategories()
         {
-            return await _context.Categories.Select(category => new CategoryDTO
+            return await _context.Categories.Select(category => new Category
             {
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
-                ProdectList = category.ProdectList.Select(p => new ProductDTO
+                ProdectList = category.ProdectList.Select(p => new Product
                 {
                     Id = p.Id,
                     Name = p.Name,
