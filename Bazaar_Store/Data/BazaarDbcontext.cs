@@ -14,6 +14,8 @@ namespace Bazaar_Store.Data
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartProduct> CartProduct { get; set; }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> User { get; set; }
@@ -33,12 +35,14 @@ namespace Bazaar_Store.Data
 
 
             modelBuilder.Entity<Product>().HasData(
-                  new Product { Id = 1, Name = "Nike Shoes", Price = 12.0, BarCode = 34645768, DiscountPrice = "0%", Description = "Comfort for running", TodaysDeals = 'F' },
-                  new Product { Id = 2, Name = "IBM", Price = 11.3, BarCode = 4534676, DiscountPrice = "15%", Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", TodaysDeals = 'T' },
-                  new Product { Id = 3, Name = "HP", Price = 635.9, BarCode = 985012, DiscountPrice = "5%", Description = "easy to use", TodaysDeals = 'F' },
-                  new Product { Id = 4, Name = "L.A. Girl", Price = 9.1, BarCode = 1403875, DiscountPrice = "0%", Description = "Safe on the skin", TodaysDeals = 'T' },
-                  new Product { Id = 5, Name = "L'Oreal", Price =25.6, BarCode = 0235752, DiscountPrice = "50%", Description = "Safe on the skin", TodaysDeals = 'T' },
-                  new Product { Id = 6, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F' }
+                  new Product { Id = 1, Name = "Nike Shoes", Price = 12.0, BarCode = 34645768, DiscountPrice = "0%", Description = "Comfort for running", TodaysDeals = 'F' ,CategoryId = 1},
+                  new Product { Id = 2, Name = "IBM", Price = 11.3, BarCode = 4534676, DiscountPrice = "15%", Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", TodaysDeals = 'T', CategoryId = 1 },
+                  new Product { Id = 3, Name = "HP", Price = 635.9, BarCode = 985012, DiscountPrice = "5%", Description = "easy to use", TodaysDeals = 'F', CategoryId = 1 },
+                  new Product { Id = 4, Name = "L.A. Girl", Price = 9.1, BarCode = 1403875, DiscountPrice = "0%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2 },
+                  new Product { Id = 5, Name = "L'Oreal", Price =25.6, BarCode = 0235752, DiscountPrice = "50%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2 },
+                  new Product { Id = 7, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
+                  new Product { Id = 8, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
+                  new Product { Id = 9, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 }
                   );
 
             modelBuilder.Entity<Company>().HasData(
@@ -52,19 +56,13 @@ namespace Bazaar_Store.Data
 
             modelBuilder.Entity<Category>().HasData(
             new Category { Id = 1, Name = "Shose", Details = "Sport Shose" },
-            new Category { Id = 2, Name = "T-shirt", Details = "roblox girl" },
+            new Category { Id = 2, Name = "Clothes", Details = "roblox girl" },
             new Category { Id = 3, Name = "Tablet PC", Details = "Octa-core (1x2.84 GHz Kryo 585 & 3x2.42 GHz Kryo 585 & 4x1.8 GHz Kryo 585) , 6GB RAM , 128GB Storage" },
             new Category { Id = 4, Name = "T-Barebone", Details = "4-Cores Processor】 11th Generation Intel Core i5-1135G7, up to 4.2 GHz Turbo, 4 core, 8 thread, 8MB" },
             new Category { Id = 5, Name = "Eyeshadow", Details = "L.A. Girl, Pro Eyeshadow Palette, Mastery, 1.23 oz (35 g)" },
             new Category { Id = 6, Name = "T-Foundation", Details = "L'Oreal, Infallible 24H Fresh Wear, Foundation In A Powder, 120 Vanilla, 0.31 oz (9 g)" }
 
             );
-            modelBuilder.Entity<User>().HasData(
-               new User { Id = 1, Name = "Alaa", Age = 24 },
-               new User { Id = 2, Name = "Yahia", Age = 29 },
-               new User { Id = 3, Name = "Ola", Age = 31 },
-               new User { Id = 4, Name = "Bashar", Age = 35 }
-               );
 
             SeedRoles(modelBuilder, "administrator", "create", "update", "delete");
             SeedRoles(modelBuilder, "editor", "create", "update");

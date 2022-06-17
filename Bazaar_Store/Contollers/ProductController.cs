@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Bazaar_Store.Models;
+using Bazaar_Store.Models.DTOs;
 using Bazaar_Store.Models.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -30,14 +31,14 @@ namespace Bazaar_Store.Contollers
             return View(product);
         }
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile file)
         {
@@ -56,7 +57,11 @@ namespace Bazaar_Store.Contollers
             {
                 await blob.UploadAsync(stream, options);
             }
-
+            if (ModelState.IsValid)
+            {
+                var newCategory = await _product.Create(product,file);
+                return RedirectToAction("Index");
+            }
             product.URL = blob.Uri.ToString();
 
             //Document document = new Document()
@@ -68,16 +73,15 @@ namespace Bazaar_Store.Contollers
             stream.Close();
             // Upload the file
             return View(product);
-        }
 
-        public async Task<IActionResult> GetById(int Id)
+        }
+        public async Task<ActionResult<ProductDTO>> Details(int id)
         {
-            Product product = await _product.GetProdect(Id);
+            ProductDTO product = await _product.GetProdect(id);
 
             return View(product);
         }
-
-
+   
         [Authorize(Roles = "editor")]
         public async Task<IActionResult> Edit(int Id)
         {
@@ -124,6 +128,6 @@ namespace Bazaar_Store.Contollers
             await _product.Delete(Id);
             return RedirectToAction("Index");
         }
-
+      
     }
 }

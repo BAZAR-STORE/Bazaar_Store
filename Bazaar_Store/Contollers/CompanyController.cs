@@ -29,11 +29,12 @@ namespace Bazaar_Store.Contollers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Company company)
+        public async Task<IActionResult> Add(Company company)
         {
             if (ModelState.IsValid)
             {
-                return Content("You have successfully added a company ! name: " + company.Name + " Description: " + company.Description);
+                var newCategory = await _company.Create(company);
+                return RedirectToAction("Index");
             }
             return View(company);
 
@@ -41,11 +42,6 @@ namespace Bazaar_Store.Contollers
         public IActionResult Companies()
         {
             List<Company> company = new List<Company>();
-            company.Add(new Company { Name = "Nike", Description = "dfjzvxjf" });
-            company.Add(new Company { Name = "Pull&Bear", Description = "kldhfbzvxh" });
-            company.Add(new Company { Name = "MSI", Description = ",mfdbvxjhds" });
-            company.Add(new Company { Name = "K2", Description = "sdvzfdf" });
-            company.Add(new Company { Name = "HP", Description = "khdbfv" });
             return View(company);
         }
         public IActionResult Update(/*id*/)    // What about the Id ?!
@@ -73,22 +69,18 @@ namespace Bazaar_Store.Contollers
             var companies = await _company.GetCompanies();
             return Ok(companies);
         }
-       
-        public IActionResult Delete()
+
+        public async Task<IActionResult> Delete(int Id)
         {
 
-            return View();
-        }
-        [HttpDelete]
-        public IActionResult Delete(Company company)
-        {
-            // get the object 
-            // updating the object with the new data
-            if (ModelState.IsValid)
+            var company = await _company.GetCompany(Id);
+            if (company == null)
             {
-                return Content("You have successfully deleted data");
+                return NotFound();
             }
+
             return View(company);
         }
+       
     }
 }

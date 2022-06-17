@@ -20,6 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="SendGrid" Version="9.28.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Carts\Index.cshtml" />
     <None Include="Pages\Components\CartCount\Default.cshtml" />
     <None Include="Pages\Settings\Index.cshtml" />
   </ItemGroup>

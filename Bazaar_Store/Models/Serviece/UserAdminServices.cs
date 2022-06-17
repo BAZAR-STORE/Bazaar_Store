@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.Serviece
 {
-    public class IdentityuserServices : IUserService
+    public class UserAdminServices : IUserAdmin
     {
         private UserManager<Admin> _userManager;
         private SignInManager<Admin> _signInManager;
-        public IdentityuserServices(UserManager<Admin> manager ,SignInManager<Admin> SignInMngr)
+        public UserAdminServices(UserManager<Admin> manager ,SignInManager<Admin> SignInMngr)
         {
             _userManager = manager;
             _signInManager = SignInMngr;
         }
-        public async Task<UserDTO> Authenticate(string username, string password)
+        public async Task<UserAdminDto> Authenticate(string username, string password)
         {
             var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
 
@@ -26,7 +26,7 @@ namespace Bazaar_Store.Models.Serviece
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByNameAsync(username);
-                return new UserDTO
+                return new UserAdminDto
                 {
                     Username = user.UserName,
                     Roles = await _userManager.GetRolesAsync(user)
@@ -38,12 +38,21 @@ namespace Bazaar_Store.Models.Serviece
             return null;
         }
 
+        public async Task<UserAdminDto> GetUser(ClaimsPrincipal principal)
+        {
+            var user = await _userManager.GetUserAsync(principal);
+            return new UserAdminDto
+            {
+                Username = user.UserName
+            };
+        }
+
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<UserDTO> Register(RegisterUser data, ModelStateDictionary modelState)
+        public async Task<UserAdminDto> Register(RegisterUser data, ModelStateDictionary modelState)
         {
             var user = new Admin
             {
@@ -58,7 +67,7 @@ namespace Bazaar_Store.Models.Serviece
                 IList<string> Roles = new List<string>();
                 Roles.Add("administrator");
                 await _userManager.AddToRolesAsync(user, Roles);
-                UserDTO userDto = new UserDTO
+                UserAdminDto userDto = new UserAdminDto
                 {
                     Id = user.Id,
                     Username = user.UserName,

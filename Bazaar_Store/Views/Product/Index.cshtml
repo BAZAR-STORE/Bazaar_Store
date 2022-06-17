@@ -30,7 +30,7 @@
                 @Html.DisplayNameFor(model => model.TodaysDeals)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.URL)
+              Photo
             </th>
         </tr>
     </thead>
@@ -42,7 +42,7 @@
                 @item.Id
             </td>
             <td>
-                @item.Name
+                <a asp-controller="Product" asp-action="Details" asp-route-id=@item.Id>@item.Name</a>
             </td>
 
             <td>
@@ -59,7 +59,7 @@
                 @item.TodaysDeals
             </td> 
             <td>
-                @item.URL
+                <img src="@item.URL" style="width:80px; height:80px"/>
             </td>
             <td>
                 <a src="Edit.cshtml" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
@@ -69,5 +69,5 @@
         }
     </tbody>
 </table>
-                                          <a src="Create.cshtml" asp-action="Create" class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Product</a>
+ <a src="Create.cshtml" asp-action="Create" class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Product</a>
 

@@ -2,15 +2,22 @@
 @model Bazaar_Store.Models.Product
 
 
-<form asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
-  <input asp-for="@Model.Name" name="name"/>
+<form  asp-action="Create" method="post" enctype="multipart/form-data">
+        <partial name="ProductField"></partial>
+         <br />
+    <button type="submit">
+            Add Product
+    </button>
+    <br />
+   @* <label asp-for="Name" class="label-Name"></label>
+    <input asp-for="Name" class="form-control" />
   <input asp-for="@Model.Price" name="price" type="number"/>
   <div><input type="file" name="file" /></div>
-  <button>Upload</button>
+  <button>Upload</button>*@
 </form>
 
-@if (@Model != null)
+@*@if (@Model != null)
 {
     <img src="@Model.URL" width=200/>
 <p>@Model.Name</p>
-}
+}*@

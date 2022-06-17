@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Contollers
 {
-    public class UsersController : Controller
+    public class UsersAdminController : Controller
     {
-        private readonly IUserService _userService;
-        public UsersController(IUserService userService)
+        private readonly IUserAdmin _userService;
+        public UsersAdminController(IUserAdmin userService)
         {
             _userService = userService;
         }
-        public IActionResult List()
-        {
-            List<Admin> Users = new List<Admin>();
+        //public IActionResult List()
+        //{
+        //    List<Admin> Users = new List<Admin>();
 
 
-            return View(Users);
-        }
+        //    return View(Users);
+        //}
 
         public IActionResult Index()
         {
             return View();
         }
         [HttpPost("Register")]
-        public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterUser data)
+        public async Task<ActionResult<UserAdminDto>> Register([FromBody] RegisterUser data)
         {
             try
             {

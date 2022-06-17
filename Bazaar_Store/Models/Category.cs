@@ -13,6 +13,7 @@ namespace Bazaar_Store.Models
         public string Name { get; set; }
         [Required]
         public string Details { get; set; }
+        public string Logo { get; set; }
 
         public List<Product> ProdectList { get; set; }
 

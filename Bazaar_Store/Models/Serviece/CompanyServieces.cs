@@ -16,14 +16,19 @@ namespace Bazaar_Store.Models.Serviece
         {
             _context = context;
         }
-        public Task<Company> Create(Company company)
+        public async Task<Company> Create(Company company)
         {
-            throw new NotImplementedException();
+
+            _context.Entry(company).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return company;
         }
 
-        public Task Delete(int Id)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            Company company = await _context.Companies.FindAsync(Id);
+            _context.Entry(company).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<Company>> GetCompanies()

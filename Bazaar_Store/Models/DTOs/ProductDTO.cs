@@ -19,7 +19,6 @@ namespace Bazaar_Store.Models.DTOs
         public string DiscountPrice { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
         public Char TodaysDeals { get; set; }
         public string URL { get; set; }
         public string CategoryName { get; set; }
