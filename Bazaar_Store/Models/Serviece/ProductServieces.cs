@@ -73,9 +73,9 @@ namespace Bazaar_Store.Models.Serviece
                     await _context.SaveChangesAsync();
                 }
 
-                public async Task<Product> GetProdect(int Id)
+                public async Task<ProductDTO> GetProdect(int Id)
                 {
-                    return await _context.Products.Select(product => new Product
+                    return await _context.Products.Select(product => new ProductDTO
                     {
                         Id = product.Id,
                         Name = product.Name,
@@ -83,6 +83,7 @@ namespace Bazaar_Store.Models.Serviece
                         Price = product.Price,
                         Description = product.Description,
                         TodaysDeals = product.TodaysDeals,
+                        CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name
 
 
                     }).FirstOrDefaultAsync(x => x.Id == Id);
@@ -98,6 +99,7 @@ namespace Bazaar_Store.Models.Serviece
                         Price = product.Price,
                         Description = product.Description,
                         TodaysDeals = product.TodaysDeals,
+                        CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name
 
                     }).ToListAsync();
                 }

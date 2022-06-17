@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models.DTOs
 {
-    public class LoginDTO
+    public class LoginAdminDTO
     {
 
         [Required(ErrorMessage = "Enter UserName!")]

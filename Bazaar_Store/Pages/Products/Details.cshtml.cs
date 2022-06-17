@@ -21,14 +21,14 @@ namespace Bazaar_Store.Pages.Product
         public async Task OnGet(int Id)
         {
             //  details = await _product.GetProdect(Id);
-            Details detail = new Bazaar_Store.Models.Product()
-            {
-                 Id = details.Id,
-                 Description = details.ProductDetails
-            };
+            //Details detail = new Product()
+            //{
+            //     Id = details.Id,
+            //     Description = details.ProductDetails
+            //};
 
-            //Details p = await _product.Create(detail);
-            detail = await _product.GetProdect(Id);
+            ////Details p = await _product.Create(detail);
+            //detail = await _product.GetProdect(Id);
         }
         public class Details
         {

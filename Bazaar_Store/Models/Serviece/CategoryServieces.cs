@@ -20,27 +20,42 @@ namespace Bazaar_Store.Models.Service
         }
 
 
-        public async Task<CategoryDTO> GetCategory(int Id)
+        public async Task<CategoryDTO> GetCategory(int id)
         {
             return await _context.Categories.Select(category => new CategoryDTO
             {
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
-
-
-
-            }).FirstOrDefaultAsync(x => x.Id == Id);
+               
+                ProdectList = category.ProdectList.Select(p => new ProductDTO
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Description = p.Description,
+                    URL = p.URL,
+                    CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == p.CategoryId).Name
+                }).ToList()
+            }).FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<List<Category>> GetCategories()
+        public async Task<List<CategoryDTO>> GetCategories()
         {
-            return await _context.Categories.Select(category => new Category
+            return await _context.Categories.Select(category => new CategoryDTO
             {
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
-
+                ProdectList = category.ProdectList.Select(p => new ProductDTO
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Description = p.Description,
+                    URL = p.URL,
+                    CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == p.CategoryId).Name
+                }).ToList()
             }).ToListAsync();
         }
 

@@ -20,19 +20,19 @@ namespace Bazaar_Store.Contollers
         }
         public async Task<IActionResult> Index()
         {
-            List<Category> category = await _category.GetCategories();
+            List<CategoryDTO> category = await _category.GetCategories();
 
             return View(category);
         }
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
@@ -43,13 +43,19 @@ namespace Bazaar_Store.Contollers
             }
             return View(category);
         }
-
-        public async Task<IActionResult> GetById(int Id)
+        public async Task<ActionResult<CategoryDTO>> Details(int id)
         {
-            CategoryDTO category = await _category.GetCategory(Id);
+            CategoryDTO category = await _category.GetCategory(id);
 
             return View(category);
         }
+
+        //public async Task<IActionResult> GetById(int Id)
+        //{
+        //    CategoryDTO category = await _category.GetCategory(Id);
+
+        //    return View(category);
+        //}
 
 
         [Authorize(Roles = "editor")]

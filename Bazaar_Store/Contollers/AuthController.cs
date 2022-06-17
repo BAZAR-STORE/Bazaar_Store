@@ -12,8 +12,8 @@ namespace Bazaar_Store.Contollers
 {
     public class AuthController : Controller
     {
-        private IUserService _IdentityuserServices;
-        public AuthController(IUserService userSer)
+        private IUserAdmin _IdentityuserServices;
+        public AuthController(IUserAdmin userSer)
         {
             _IdentityuserServices = userSer;
         }
@@ -33,7 +33,7 @@ namespace Bazaar_Store.Contollers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> Login(RegisterUser register)
+        public async Task<ActionResult<UserAdminDto>> Login(RegisterUser register)
         {
             var user = await _IdentityuserServices.Register(register, this.ModelState);
             if (ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace Bazaar_Store.Contollers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> SignUp(RegisterUser register)
+        public async Task<ActionResult<UserAdminDto>> SignUp(RegisterUser register)
         {
             var user = await _IdentityuserServices.Register(register, this.ModelState);
             if (ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace Bazaar_Store.Contollers
             return View();
         }
 
-        public async Task<ActionResult<UserDTO>> Authenticate(LoginDTO login)
+        public async Task<ActionResult<UserAdminDto>> Authenticate(LoginAdminDTO login)
         {
             var user = await _IdentityuserServices.Authenticate(login.UserName, login.Password);
             if (user == null)

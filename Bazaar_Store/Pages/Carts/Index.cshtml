@@ -1,0 +1,48 @@
+﻿@page
+@model Bazaar_Store.Pages.Carts.IndexModel
+@{
+}
+
+
+<div class="body">
+<div class="CartContainer">
+   	   <div class="Header">
+   	   	<h3 class="Heading">Shopping Cart</h3>
+   	   	<h5 class="Action">Remove all</h5>
+   	   </div>
+
+@foreach (var item in @Model.Cart.Products)
+{
+       <div class="Cart-Items">
+   	   	  <div class="image-box">
+   	   	  	<img src="@item.URL" style="height:120px" />
+   	   	  </div>
+   	   	  <div class="about">
+   	   	  	<h1 class="title">@item.Name</h1>
+   	   	  	<h3 class="subtitle"></h3>
+   	   	  	<img src=".\images\veg.png" style="height:20px"/>
+   	   	  </div>
+   	   	  <div class="counter">
+   	   	  	<div class="btn"><a href="/">+</a></div>
+   	   	  	<div class="count">2</div>
+   	   	  	<div class="btn"><a href="/">-</a></div>
+   	   	  </div>
+   	   	  <div class="prices">
+   	   	  	<div class="amount">@item.Price JD</div>
+   	   	  	<div class="remove"><u>Remove</u></div>
+   	   	  </div>
+   	   </div>
+}
+   	 <hr> 
+   	 <div class="checkout">
+   	 <div class="total">
+   	 	<div>
+   	 		<div class="Subtotal">Sub-Total</div>
+   	 		<div class="items">@Model.Cart.TotalQuantity items</div>
+   	 	</div>
+   	 	<div class="total-amount">@Model.Cart.TotalCost JD</div>
+   	 </div>
+   	 <button class="button">Checkout</button></div>
+   </div>
+
+   </div>

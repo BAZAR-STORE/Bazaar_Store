@@ -42,8 +42,9 @@ namespace Bazaar_Store
             services.AddTransient<ICompany, CompanyServieces>();
             services.AddTransient<IProduct, ProductServieces>();
             services.AddTransient<ICategory, CategoryServieces>();
-            services.AddTransient<IUserService, IdentityuserServices>();
+            services.AddTransient<IUserAdmin, UserAdminServices>();
             services.AddTransient<IUser, UsersService>();
+            services.AddTransient<ICart, CartService>();
 
 
             services.AddIdentity<Admin, IdentityRole>(options =>
@@ -77,10 +78,6 @@ namespace Bazaar_Store
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
-                endpoints.MapControllerRoute("default", "{controller=Accounts}/{action=Index}");
-                endpoints.MapControllerRoute("default", "{controller=Company}/{action=Index}");
-                endpoints.MapControllerRoute("default", "{controller=Category}/{action=Index}");
-
             });
 
             app.UseStaticFiles();

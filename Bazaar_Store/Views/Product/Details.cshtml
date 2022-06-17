@@ -1,0 +1,54 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Bazaar_Store.Models.DTOs
+@model ProductDTO
+
+<div>
+    @*<h3>@Model.Name</h3>*@
+    <hr />
+    <table border=1 class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                CategoryName
+            </th>
+            <th>
+                Photo
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+     <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.CategoryName)
+            </td>
+            <td>
+                <img src="@Model.URL" style="width:80px; height:80px"/>
+            </td>
+     </tr>
+    </tbody>
+</table>
+</div>

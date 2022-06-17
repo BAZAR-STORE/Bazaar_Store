@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bazaar_Store.Models.Category>
+﻿@model IEnumerable<Bazaar_Store.Models.DTOs.CategoryDTO>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
@@ -27,7 +27,8 @@
                     @item.Id
                 </td>
                 <td>
-                    @item.Name
+                                    <a asp-controller="Category" asp-action="Details" asp-route-id=@item.Id>@item.Name</a>
+
                 </td>
 
                 <td>

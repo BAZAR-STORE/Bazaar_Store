@@ -8,7 +8,11 @@ namespace Bazaar_Store.Models
 {
     public class Product
     {
+        [Key]
         public int Id { get; set; }
+     
+        public int CategoryId { get; set; }
+
         [Required]
         public int BarCode { get; set; }
         [Required]
