@@ -12,7 +12,7 @@ namespace Bazaar_Store.Models.Interface
         Task<Product> Create(Product product, IFormFile file);
         Task<List<Product>> GetProdects();
         Task Delete(int Id);
-        Task<ProductDTO> GetProdect(int Id);
+        Task<Product> GetProdect(int Id);
         Task<Product> UpdateProduct(int Id, Product product);
     }
 }
