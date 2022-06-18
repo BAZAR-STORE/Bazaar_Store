@@ -1,0 +1,18 @@
+﻿body {
+    margin:0;
+    padding:0;
+    background-image:url('https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/2017/08/23210821/23082017_Gramophone_02.jpg?w=1200&h=628&fill=blur&fit=fill');
+    background-size:cover;
+    font-family:sans-serif;
+}
+.Loginbox {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:350px;
+    height:420px;
+    padding:80px 40px;
+    box-sizing:border-box;
+    background:rgba(0,0.5,0,0 );
+}

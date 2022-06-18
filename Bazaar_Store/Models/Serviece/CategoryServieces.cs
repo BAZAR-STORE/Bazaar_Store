@@ -28,7 +28,7 @@ namespace Bazaar_Store.Models.Service
                 Name = category.Name,
                 Details = category.Details,
                
-                ProdectList = category.ProdectList.Select(p => new Product
+                ProductList = category.ProductList.Select(p => new Product
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -47,7 +47,7 @@ namespace Bazaar_Store.Models.Service
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
-                ProdectList = category.ProdectList.Select(p => new Product
+                ProductList = category.ProductList.Select(p => new Product
                 {
                     Id = p.Id,
                     Name = p.Name,
