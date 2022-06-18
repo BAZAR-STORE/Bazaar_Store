@@ -1,0 +1,42 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Bazaar_Store.Pages.Accounts.CategoryModel
+@{
+}
+
+
+@if (Model.categories != null)
+{
+    foreach (var category in Model.categories)
+    {
+<table class="table">
+    <thead>
+    <td>
+        @Html.DisplayNameFor(model => category.Name)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => category.Logo)
+    </td>
+    <tr>
+
+        <a asp-page="/Products/Products" asp-route-id="@category.Id">
+
+
+        </a>
+        <th>
+            @category.Name
+        </th>
+        <th>
+            @category.Logo
+        </th>
+    </tr>
+    </thead>
+
+</table>
+
+
+        <button type="button">Details</button>
+        <button type="button">Add Cart</button>
+
+    }
+}

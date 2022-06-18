@@ -61,7 +61,7 @@ namespace Bazaar_Store.Contollers
         [Authorize(Roles = "editor")]
         public async Task<IActionResult> Edit(int Id)
         {
-           
+
 
             var category = await _category.GetCategory(Id);
             if (category == null)
@@ -86,7 +86,7 @@ namespace Bazaar_Store.Contollers
         [Authorize(Roles = "administrator")]
         public async Task<IActionResult> Delete(int Id)
         {
-           
+
 
             var category = await _category.GetCategory(Id);
             if (category == null)
@@ -104,5 +104,6 @@ namespace Bazaar_Store.Contollers
             await _category.Delete(Id);
             return RedirectToAction("Index");
         }
+
     }
 }
