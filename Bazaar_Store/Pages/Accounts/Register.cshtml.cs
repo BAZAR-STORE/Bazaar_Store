@@ -21,7 +21,7 @@ namespace Bazaar_Store.Pages.Accounts
         {
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             User user = new User()
             {
@@ -31,9 +31,11 @@ namespace Bazaar_Store.Pages.Accounts
                 Age = Input.Age
             };
 
-            User p = await PeopleService.Create(user);
+            // User p = await PeopleService.Create(user);
+            //  I will leave it for your exploration .... 
 
-            // I will leave it for your exploration .... 
+            await PeopleService.Register(user, this.ModelState);
+            return RedirectToPage("/Accounts/Login");
         }
 
         public class RegisterData
