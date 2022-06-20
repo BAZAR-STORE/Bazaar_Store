@@ -3,7 +3,10 @@
 @{
 }
 <form method="post">
-    <input asp-for="Input.Email"/>
-    <input asp-for="Input.Password"/>
-    <button type ="submit">Sign In</button>
+    <label>Email:</label>
+    <input asp-for="Input.Email" />
+
+    <label>Password:</label>
+    <input asp-for="Input.Password" />
+    <button type="submit"> Login </button>
 </form>

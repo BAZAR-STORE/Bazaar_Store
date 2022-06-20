@@ -21,19 +21,27 @@ namespace Bazaar_Store.Pages.Accounts
         {
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
-            User user = new User()
+            User userlogin = new User()
             {
                 Email = Input.Email,
                 Password = Input.Password,
             };
 
-            User p = await PeopleService.Create(user);
+            //  User p = await PeopleService.Create(user);
+            var u = await PeopleService.Login(userlogin.Email, userlogin.Password);
+            if (userlogin != null)
+            {
+                return RedirectToAction("Index", "Category");
 
-            // I will leave it for your exploration .... 
+            }
+            else
+            {
+                return Page();
+
+            }
         }
-
         public class RegisterData
         {
             public string Email { get; set; }
