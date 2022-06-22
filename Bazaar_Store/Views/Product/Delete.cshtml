@@ -9,16 +9,12 @@
 
 <div>
     <h1>@Model.Name</h1>
-    <p>@Model.Price</p>
-    <p>@Model.TodaysDeals</p>
-    <p>@Model.DiscountPrice</p>
     <p>@Model.BarCode</p>
-   
 </div>
 
-<form asp-controller="Product" asp-action="Delete" method="post" asp-route-id="@Model.Id"  src="@Model.URL">
-    <button type="submit"> Delete </button>
+<form asp-controller="Category" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+    <button type="submit" > Delete </button>
 
-    <a asp-controller="Product" asp-action="Index"> Back to Product</a>
+    <a asp-controller="Category" asp-action="Index"> Back to Category</a>
 
 </form>

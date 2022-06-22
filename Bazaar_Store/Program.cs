@@ -11,7 +11,9 @@ namespace Bazaar_Store
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+          var host=  CreateHostBuilder(args).Build();
+            UpdateDatabase(host.Services);
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -20,5 +22,15 @@ namespace Bazaar_Store
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        private static void UpdateDatabase(IServiceProvider services)
+        {
+            using (var serviceScope = services.CreateScope())
+            {
+                using (var db = serviceScope.ServiceProvider.GetService<BazaarDbcontext>())
+                {
+                    db.Database.Migrate();
+                }
+            }
+        }
     }
 }

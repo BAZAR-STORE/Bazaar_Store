@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bazaar_Store.Migrations
 {
-    public partial class BazaarTable : Migration
+    public partial class AddTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,6 +72,22 @@ namespace Bazaar_Store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,18 +197,41 @@ namespace Bazaar_Store.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalCost = table.Column<double>(type: "float", nullable: false),
+                    TotalQuantity = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     BarCode = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    DiscountPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiscountPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TodaysDeals = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -202,7 +241,33 @@ namespace Bazaar_Store.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartProduct",
+                columns: table => new
+                {
+                    CartId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartProduct", x => new { x.CartId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_CartProduct_Carts_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartProduct_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -210,9 +275,9 @@ namespace Bazaar_Store.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "user", "00000000-0000-0000-0000-000000000000", "user", "USER" },
                     { "administrator", "00000000-0000-0000-0000-000000000000", "administrator", "ADMINISTRATOR" },
-                    { "editor", "00000000-0000-0000-0000-000000000000", "editor", "EDITOR" }
+                    { "editor", "00000000-0000-0000-0000-000000000000", "editor", "EDITOR" },
+                    { "user", "00000000-0000-0000-0000-000000000000", "user", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -220,12 +285,12 @@ namespace Bazaar_Store.Migrations
                 columns: new[] { "Id", "Details", "Name" },
                 values: new object[,]
                 {
-                    { 6, "L'Oreal, Infallible 24H Fresh Wear, Foundation In A Powder, 120 Vanilla, 0.31 oz (9 g)", "T-Foundation" },
                     { 1, "Sport Shose", "Shose" },
-                    { 4, "4-Cores Processor】 11th Generation Intel Core i5-1135G7, up to 4.2 GHz Turbo, 4 core, 8 thread, 8MB", "T-Barebone" },
+                    { 2, "roblox girl", "Clothes" },
                     { 3, "Octa-core (1x2.84 GHz Kryo 585 & 3x2.42 GHz Kryo 585 & 4x1.8 GHz Kryo 585) , 6GB RAM , 128GB Storage", "Tablet PC" },
-                    { 2, "roblox girl", "T-shirt" },
-                    { 5, "L.A. Girl, Pro Eyeshadow Palette, Mastery, 1.23 oz (35 g)", "Eyeshadow" }
+                    { 4, "4-Cores Processor】 11th Generation Intel Core i5-1135G7, up to 4.2 GHz Turbo, 4 core, 8 thread, 8MB", "T-Barebone" },
+                    { 5, "L.A. Girl, Pro Eyeshadow Palette, Mastery, 1.23 oz (35 g)", "Eyeshadow" },
+                    { 6, "L'Oreal, Infallible 24H Fresh Wear, Foundation In A Powder, 120 Vanilla, 0.31 oz (9 g)", "T-Foundation" }
                 });
 
             migrationBuilder.InsertData(
@@ -237,21 +302,8 @@ namespace Bazaar_Store.Migrations
                     { 2, "is a Spanish clothing and accessories retailer based in Narón (A Coruña), Galicia founded in 1991.[1] It is part of Inditex, owner of Zara and Bershka brands. The name came from the word pull like pull from the shelf and bear", "IBM" },
                     { 3, " HP, was an American multinational information technology company headquartered in Palo Alto, California. ", "HP" },
                     { 4, " eyeliner, mascara, primer, lipstick, lipgloss, blush, foundation,", "L.A. Girl" },
-                    { 6, "Dell is an American technology company that develops, sells, repairs, and supports computers and related products and services, and is owned by its parent company of Dell Technologies", "Deall" },
-                    { 5, "L'Oréal S.A. (French pronunciation: ​[lɔʁeal]) is a French personal care company headquartered in Clichy, Hauts-de-Seine[2] with a registered office in Paris", "L'Oreal" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "BarCode", "CategoryId", "Description", "DiscountPrice", "Name", "Price", "TodaysDeals" },
-                values: new object[,]
-                {
-                    { 1, 34645768, null, "Comfort for running", "0%", "Nike Shoes", 12.0, "F" },
-                    { 2, 4534676, null, "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", "15%", "IBM", 11.300000000000001, "T" },
-                    { 3, 985012, null, "easy to use", "5%", "HP", 635.89999999999998, "F" },
-                    { 4, 1403875, null, "Safe on the skin", "0%", "L.A. Girl", 9.0999999999999996, "T" },
-                    { 5, 235752, null, "Safe on the skin", "50%", "L'Oreal", 25.600000000000001, "T" },
-                    { 6, 78413566, null, "Comfort for running", "30%", "Deall", 400.5, "F" }
+                    { 5, "L'Oréal S.A. (French pronunciation: ​[lɔʁeal]) is a French personal care company headquartered in Clichy, Hauts-de-Seine[2] with a registered office in Paris", "L'Oreal" },
+                    { 6, "Dell is an American technology company that develops, sells, repairs, and supports computers and related products and services, and is owned by its parent company of Dell Technologies", "Deall" }
                 });
 
             migrationBuilder.InsertData(
@@ -265,6 +317,21 @@ namespace Bazaar_Store.Migrations
                     { 4, "permissions", "create", "editor" },
                     { 5, "permissions", "update", "editor" },
                     { 6, "permissions", "create", "user" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "BarCode", "CategoryId", "CategoryName", "Description", "DiscountPrice", "Name", "Price", "TodaysDeals", "URL" },
+                values: new object[,]
+                {
+                    { 1, 34645768, 1, null, "Comfort for running", "0%", "Nike Shoes", 12.0, "F", null },
+                    { 2, 4534676, 1, null, "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", "15%", "IBM", 11.300000000000001, "T", null },
+                    { 3, 985012, 1, null, "easy to use", "5%", "HP", 635.89999999999998, "F", null },
+                    { 4, 1403875, 2, null, "Safe on the skin", "0%", "L.A. Girl", 9.0999999999999996, "T", null },
+                    { 5, 235752, 2, null, "Safe on the skin", "50%", "L'Oreal", 25.600000000000001, "T", null },
+                    { 7, 78413566, 3, null, "Comfort for running", "30%", "Deall", 400.5, "F", null },
+                    { 8, 78413566, 3, null, "Comfort for running", "30%", "Deall", 400.5, "F", null },
+                    { 9, 78413566, 3, null, "Comfort for running", "30%", "Deall", 400.5, "F", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -307,6 +374,16 @@ namespace Bazaar_Store.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartProduct_ProductId",
+                table: "CartProduct",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -330,13 +407,22 @@ namespace Bazaar_Store.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CartProduct");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -9,10 +9,13 @@ namespace Bazaar_Store.Models.Interface
 {
     public interface IProduct
     {
-        Task<Product> Create(Product product, IFormFile file);
+        Task<Product> Create(Product product);
         Task<List<Product>> GetProdects();
-        Task Delete(int Id);
         Task<Product> GetProdect(int Id);
+        Task Delete(int Id);
         Task<Product> UpdateProduct(int Id, Product product);
+        Task<string> Uplode(IFormFile file);
+        Task<List<Category>> GetCategories();
+        int GetProductCategory(string category);
     }
 }

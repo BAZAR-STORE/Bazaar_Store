@@ -1,23 +1,13 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model Bazaar_Store.Models.Product
+@model Bazaar_Store.Models.ProductCategoryDto
 
 
-<form  asp-action="Create" method="post" enctype="multipart/form-data">
+<form  asp-controller="Product"  asp-action="Create" method="post" enctype="multipart/form-data">
         <partial name="ProductField"></partial>
          <br />
     <button type="submit">
             Add Product
     </button>
     <br />
-   @* <label asp-for="Name" class="label-Name"></label>
-    <input asp-for="Name" class="form-control" />
-  <input asp-for="@Model.Price" name="price" type="number"/>
-  <div><input type="file" name="file" /></div>
-  <button>Upload</button>*@
-</form>
-
-@*@if (@Model != null)
-{
-    <img src="@Model.URL" width=200/>
-<p>@Model.Name</p>
-}*@
+    </form>
+    <div asp-validation-summary="All"></div>
