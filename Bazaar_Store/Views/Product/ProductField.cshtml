@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model Bazaar_Store.Models.Product
+@model Bazaar_Store.Models.ProductCategoryDto
 
 <label>Name</label>
 <input asp-for="@Model.Name" />
@@ -10,19 +10,26 @@
 <label>Price</label>
 <input asp-for="@Model.Price" />
     <br />
-<label>DiscountPrice</label>
-<input asp-for="@Model.DiscountPrice" />
     <br />
-    <br />
-<label>CategoryName</label>
-<input asp-for="@Model.CategoryName" />
+ <label>
+        <span>
+            Choose a category:
+        </span>
+    </label>
+       <select asp-for = "@Model.CategoryName">
+      @foreach (var item in Model.Categories)
+       {
+        <option value="@item.Name">@item.Name</option>   
+       }
+    </select>
     <br />
 <label>Description</label>
 <input asp-for="@Model.Description" />
     <br />
-<label>TodaysDeals</label>
-<input asp-for="@Model.TodaysDeals" />
+   <label>
+        <span>Photo</span>
+    </label>
     <br />
-  <div><input asp-for="@Model.URL" type="file" name="file" /></div>
-     
-   
+    <input asp-for="@Model.File"/>
+    <br />
+

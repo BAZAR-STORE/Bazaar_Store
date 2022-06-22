@@ -1,5 +1,7 @@
 ﻿using Bazaar_Store.Data;
 using Bazaar_Store.Models.Interface;
+using Bazaar_Store.Pages.Accounts;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +26,16 @@ namespace Bazaar_Store.Models.Serviece
         public async Task<List<User>> GetAll()
         {
             return await _context.User.ToListAsync();
+        }
+
+        public Task<User> Login(string username, string password)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<User> Register(RegisterModel.RegisterData Input, ModelStateDictionary modelstate)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

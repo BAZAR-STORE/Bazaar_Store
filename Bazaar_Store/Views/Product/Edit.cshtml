@@ -1,37 +1,13 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model Bazaar_Store.Models.Product
+@model Bazaar_Store.Models.ProductCategoryDto
 
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Id" />
-
-    <label asp-for="Name" class="control-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-
-
-    <label asp-for="BarCode" class="control-label"></label>
-    <input asp-for="BarCode" class="form-control" />
-    <span asp-validation-for="BarCode" class="text-danger"></span>
-
-    <label asp-for="Price" class="control-label"></label>
-    <input asp-for="Price" class="form-control" />
-    <span asp-validation-for="Price" class="text-danger"></span>
-
-    <label asp-for="DiscountPrice" class="control-label"></label>
-    <input asp-for="DiscountPrice" class="form-control" />
-    <span asp-validation-for="DiscountPrice" class="text-danger"></span>
-
-    <label asp-for="Description" class="control-label"></label>
-    <input asp-for="Description" class="form-control" />
-    <span asp-validation-for="Description" class="text-danger"></span>
-
-    <label asp-for="TodaysDeals" class="control-label"></label>
-    <input asp-for="TodaysDeals" class="form-control" />
-    <span asp-validation-for="TodaysDeals" class="text-danger"></span>
-
-    <input type="submit" value="Save" class="btn btn-primary" />
-
-</form>
-
-<a asp-action="Index">Back to Product</a>
+<form  asp-controller="Product"  asp-action="Edit" method="post" enctype="multipart/form-data">
+       <input hidden asp-for="@Model.Id"/>
+    <partial name="ProductField"></partial>
+    <button type="submit">
+            Edit Product
+    </button>
+    <br />
+    </form>
+    <div asp-validation-summary="All"></div>
+   

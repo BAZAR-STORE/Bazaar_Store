@@ -13,26 +13,28 @@ namespace Bazaar_Store.Contollers
     public class CategoryController : Controller
     {
         private readonly ICategory _category;
+        private readonly IProduct _product;
 
-        public CategoryController(ICategory category)
+        public CategoryController(ICategory category, IProduct product)
         {
             _category = category;
+            _product = product;
         }
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult<Category>> Index()
         {
             List<Category> category = await _category.GetCategories();
 
             return View(category);
         }
 
-        //[Authorize(Roles = "administrator")]
+        [Authorize(Roles = "administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
 
-        //[Authorize(Roles = "administrator")]
+        [Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
@@ -48,15 +50,7 @@ namespace Bazaar_Store.Contollers
             Category category = await _category.GetCategory(id);
 
             return View(category);
-        }
-
-        public async Task<IActionResult> GetById(int Id)
-        {
-            Category category = await _category.GetCategory(Id);
-
-            return View(category);
-        }
-
+        } 
 
         [Authorize(Roles = "editor")]
         public async Task<IActionResult> Edit(int Id)

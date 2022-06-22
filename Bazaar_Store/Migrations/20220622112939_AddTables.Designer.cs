@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bazaar_Store.Migrations
 {
     [DbContext(typeof(BazaarDbcontext))]
-    [Migration("20220613160807_AddUserTable")]
-    partial class AddUserTable
+    [Migration("20220622112939_AddTables")]
+    partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,6 +86,50 @@ namespace Bazaar_Store.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("TotalCost")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.CartProduct", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartProduct");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -116,7 +160,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 2,
                             Details = "roblox girl",
-                            Name = "T-shirt"
+                            Name = "Clothes"
                         },
                         new
                         {
@@ -212,15 +256,17 @@ namespace Bazaar_Store.Migrations
                     b.Property<int>("BarCode")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiscountPrice")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -248,6 +294,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 1,
                             BarCode = 34645768,
+                            CategoryId = 1,
                             Description = "Comfort for running",
                             DiscountPrice = "0%",
                             Name = "Nike Shoes",
@@ -258,6 +305,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 2,
                             BarCode = 4534676,
+                            CategoryId = 1,
                             Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436",
                             DiscountPrice = "15%",
                             Name = "IBM",
@@ -268,6 +316,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 3,
                             BarCode = 985012,
+                            CategoryId = 1,
                             Description = "easy to use",
                             DiscountPrice = "5%",
                             Name = "HP",
@@ -278,6 +327,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 4,
                             BarCode = 1403875,
+                            CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "0%",
                             Name = "L.A. Girl",
@@ -288,6 +338,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 5,
                             BarCode = 235752,
+                            CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "50%",
                             Name = "L'Oreal",
@@ -296,8 +347,31 @@ namespace Bazaar_Store.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 7,
                             BarCode = 78413566,
+                            CategoryId = 3,
+                            Description = "Comfort for running",
+                            DiscountPrice = "30%",
+                            Name = "Deall",
+                            Price = 400.5,
+                            TodaysDeals = "F"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BarCode = 78413566,
+                            CategoryId = 3,
+                            Description = "Comfort for running",
+                            DiscountPrice = "30%",
+                            Name = "Deall",
+                            Price = 400.5,
+                            TodaysDeals = "F"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BarCode = 78413566,
+                            CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
                             Name = "Deall",
@@ -328,32 +402,6 @@ namespace Bazaar_Store.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 24,
-                            Name = "Alaa"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 29,
-                            Name = "Yahia"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 31,
-                            Name = "Ola"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Age = 35,
-                            Name = "Bashar"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -554,11 +602,43 @@ namespace Bazaar_Store.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
+                {
+                    b.HasOne("Bazaar_Store.Models.Admin", "admin")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("admin");
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.CartProduct", b =>
+                {
+                    b.HasOne("Bazaar_Store.Models.Cart", "Cart")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bazaar_Store.Models.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Product", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.Category", null)
-                        .WithMany("ProdectList")
-                        .HasForeignKey("CategoryId");
+                    b.HasOne("Bazaar_Store.Models.Category", "Category")
+                        .WithMany("ProductList")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -612,9 +692,14 @@ namespace Bazaar_Store.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
+                {
+                    b.Navigation("CartProducts");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Category", b =>
                 {
-                    b.Navigation("ProdectList");
+                    b.Navigation("ProductList");
                 });
 #pragma warning restore 612, 618
         }
