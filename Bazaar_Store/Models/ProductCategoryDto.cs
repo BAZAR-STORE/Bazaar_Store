@@ -7,30 +7,20 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Models
 {
-    public class Product
+    public class ProductCategoryDto
     {
-        [Key]
         public int Id { get; set; }
-     
-        public int CategoryId { get; set; }
-
-       
-        public int BarCode { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Price is required")]
         public double Price { get; set; }
-       
-        public string DiscountPrice { get; set; }
-        [Required]
         public string Description { get; set; }
-       
-        public Char TodaysDeals { get; set; }
-        public string URL { get; set; }
+        public int BarCode { get; set; }
+        public IFormFile File { get; set; }
+        public string ImgUrl { get; set; }
+      
         public string CategoryName { get; set; }
 
-        public Category Category { get; set; }
-
-
+        public List<Category> Categories { get; set; }
     }
 }

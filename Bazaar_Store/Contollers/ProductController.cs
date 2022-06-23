@@ -17,11 +17,11 @@ namespace Bazaar_Store.Contollers
     public class ProductController : Controller
     {
         private IProduct _product;
-        IConfiguration Configuration;
-        public ProductController(IProduct product, IConfiguration config)
+    
+        public ProductController(IProduct product)
         {
             _product = product;
-            Configuration = config; 
+          
         }
 
         public async Task<IActionResult> Index()
@@ -31,48 +31,47 @@ namespace Bazaar_Store.Contollers
             return View(product);
         }
 
-        //[Authorize(Roles = "administrator")]
-        public IActionResult Create()
+        [Authorize(Roles = "administrator")]
+        public async Task<IActionResult> Create()
         {
-            return View();
+            ProductCategoryDto categoryDto = new ProductCategoryDto
+            {
+                Categories = await _product.GetCategories()
+            };
+
+            return View(categoryDto);
         }
 
 
-        //[Authorize(Roles = "administrator")]
+       [Authorize(Roles = "administrator")]
         [HttpPost]
-        public async Task<IActionResult> Create(Product product, IFormFile file)
+        public async Task<ActionResult> Create(ProductCategoryDto newProduct)
         {
-            BlobContainerClient container = new BlobContainerClient(Configuration.GetConnectionString("AzureBlob"), "images");
-            await container.CreateIfNotExistsAsync();
-            BlobClient blob = container.GetBlobClient(file.FileName);
-            using var stream = file.OpenReadStream();
-
-            BlobUploadOptions options = new BlobUploadOptions()
+            newProduct.Categories = await _product.GetCategories();
+            if (newProduct.File != null)
             {
-                HttpHeaders = new BlobHttpHeaders() { ContentType = file.ContentType }
+                newProduct.ImgUrl = await _product.Uplode(newProduct.File);
+            }
+
+            Product product = new Product
+            {
+                Id = newProduct.Id,
+                Name = newProduct.Name,
+                Price = newProduct.Price,
+                Description = newProduct.Description,
+                URL = newProduct.ImgUrl,
+                CategoryId = _product.GetProductCategory(newProduct.CategoryName)
             };
 
 
-            if (!blob.Exists())
-            {
-                await blob.UploadAsync(stream, options);
-            }
             if (ModelState.IsValid)
             {
-                var newCategory = await _product.Create(product,file);
+                await _product.Create(product);
+
                 return RedirectToAction("Index");
             }
-            product.URL = blob.Uri.ToString();
+            return View(newProduct);
 
-            //Document document = new Document()
-            //{
-            //  PNmae = name,
-            //  Price = price,
-            //  Url = blob.Uri.ToString()
-            //};
-            stream.Close();
-            // Upload the file
-            return View(product);
 
         }
         public async Task<ActionResult<Product>> Details(int id)
@@ -83,32 +82,52 @@ namespace Bazaar_Store.Contollers
         }
    
         [Authorize(Roles = "editor")]
-        public async Task<IActionResult> Edit(int Id)
+        public async Task<ActionResult> Edit(int Id)
         {
-           
+            Product Product = await _product.GetProdect(Id);
 
-            var product = await _product.GetProdect(Id);
-            if (product == null)
+            ProductCategoryDto product = new ProductCategoryDto
             {
-                return NotFound();
-            }
+                Id = Product.Id,
+                Name = Product.Name,
+                Price = Product.Price,
+                Description = Product.Description,
+                ImgUrl = Product.URL,
+                Categories = await _product.GetCategories()
+            };
+
             return View(product);
         }
 
         [Authorize(Roles = "editor")]
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
+        public async Task<ActionResult> Edit(ProductCategoryDto product)
         {
+            product.ImgUrl = await _product.Uplode(product.File);
+
+            Product productNew = new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                URL = product.ImgUrl,
+                CategoryId = _product.GetProductCategory(product.CategoryName)
+            };
+          
+
             if (ModelState.IsValid)
             {
-                var updateProduct = await _product.UpdateProduct(product.Id, product);
+                await _product.UpdateProduct(product.Id, productNew);
+
                 return RedirectToAction("Index");
             }
+
             return View(product);
         }
 
         [Authorize(Roles = "administrator")]
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<ActionResult> Delete(int Id)
         {
            
 
@@ -118,16 +137,12 @@ namespace Bazaar_Store.Contollers
                 return NotFound();
             }
 
-            return View(product);
-        }
-
-        [Authorize(Roles = "administrator")]
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int Id)
-        {
+          
             await _product.Delete(Id);
             return RedirectToAction("Index");
         }
+
+     
       
     }
 }

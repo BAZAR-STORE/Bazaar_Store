@@ -16,15 +16,14 @@ namespace Bazaar_Store.Components
     // 7- add the call for the component wherever you want to include it @await Compinent.InvoceAsync("name of the component")
     public class CartCount : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
-        {
-            ViewComponentModel cartData = new ViewComponentModel { Name = HttpContext.Request.Cookies["username"] };
-            return View(cartData);
-        }
-
         public class ViewComponentModel
         {
-            public string Name { get; set; }
+            public string Count { get; set; }
+        }
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            ViewComponentModel cartData = new ViewComponentModel { Count = HttpContext.Request.Cookies["count"] };
+            return await Task.FromResult(View(cartData));
         }
     }
 }

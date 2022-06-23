@@ -4,22 +4,129 @@ using Bazaar_Store.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bazaar_Store.Migrations
 {
     [DbContext(typeof(BazaarDataBase))]
-    [Migration("20220608093835_BazaarTable")]
-    partial class BazaarTable
+    partial class BazaarDataBaseModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Bazaar_Store.Models.Admin", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("TotalCost")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.CartProduct", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartProduct");
+                });
 
             modelBuilder.Entity("Bazaar_Store.Models.Category", b =>
                 {
@@ -51,7 +158,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 2,
                             Details = "roblox girl",
-                            Name = "T-shirt"
+                            Name = "Clothes"
                         },
                         new
                         {
@@ -147,15 +254,17 @@ namespace Bazaar_Store.Migrations
                     b.Property<int>("BarCode")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiscountPrice")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -169,6 +278,9 @@ namespace Bazaar_Store.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
+                    b.Property<string>("URL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -180,6 +292,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 1,
                             BarCode = 34645768,
+                            CategoryId = 1,
                             Description = "Comfort for running",
                             DiscountPrice = "0%",
                             Name = "Nike Shoes",
@@ -190,6 +303,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 2,
                             BarCode = 4534676,
+                            CategoryId = 1,
                             Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436",
                             DiscountPrice = "15%",
                             Name = "IBM",
@@ -200,6 +314,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 3,
                             BarCode = 985012,
+                            CategoryId = 1,
                             Description = "easy to use",
                             DiscountPrice = "5%",
                             Name = "HP",
@@ -210,6 +325,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 4,
                             BarCode = 1403875,
+                            CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "0%",
                             Name = "L.A. Girl",
@@ -220,6 +336,7 @@ namespace Bazaar_Store.Migrations
                         {
                             Id = 5,
                             BarCode = 235752,
+                            CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "50%",
                             Name = "L'Oreal",
@@ -228,8 +345,31 @@ namespace Bazaar_Store.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 7,
                             BarCode = 78413566,
+                            CategoryId = 3,
+                            Description = "Comfort for running",
+                            DiscountPrice = "30%",
+                            Name = "Deall",
+                            Price = 400.5,
+                            TodaysDeals = "F"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BarCode = 78413566,
+                            CategoryId = 3,
+                            Description = "Comfort for running",
+                            DiscountPrice = "30%",
+                            Name = "Deall",
+                            Price = 400.5,
+                            TodaysDeals = "F"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BarCode = 78413566,
+                            CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
                             Name = "Deall",
@@ -240,67 +380,26 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Bazaar_Store.Models.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccessFailedCount")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -501,11 +600,43 @@ namespace Bazaar_Store.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
+                {
+                    b.HasOne("Bazaar_Store.Models.Admin", "admin")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("admin");
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.CartProduct", b =>
+                {
+                    b.HasOne("Bazaar_Store.Models.Cart", "Cart")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bazaar_Store.Models.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Product", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.Category", null)
-                        .WithMany("ProdectList")
-                        .HasForeignKey("CategoryId");
+                    b.HasOne("Bazaar_Store.Models.Category", "Category")
+                        .WithMany("ProductList")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -519,7 +650,7 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.User", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -528,7 +659,7 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.User", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -543,7 +674,7 @@ namespace Bazaar_Store.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bazaar_Store.Models.User", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -552,16 +683,21 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.User", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
+                {
+                    b.Navigation("CartProducts");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Category", b =>
                 {
-                    b.Navigation("ProdectList");
+                    b.Navigation("ProductList");
                 });
 #pragma warning restore 612, 618
         }

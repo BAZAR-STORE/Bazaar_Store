@@ -23,7 +23,7 @@ namespace Bazaar_Store.Pages.Accounts
 
         public async Task<IActionResult> OnPostAsync()
         {
-            User user = new User()
+            RegisterData user = new RegisterData()
             {
                 Email = Input.Email,
                 Name = Input.Name,

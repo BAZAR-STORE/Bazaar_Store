@@ -63,6 +63,9 @@ namespace Bazaar_Store.Data
             new Category { Id = 6, Name = "T-Foundation", Details = "L'Oreal, Infallible 24H Fresh Wear, Foundation In A Powder, 120 Vanilla, 0.31 oz (9 g)" }
 
             );
+            modelBuilder.Entity<CartProduct>().HasKey(
+          CartProduct => new { CartProduct.CartId, CartProduct.ProductId }
+          );
 
             SeedRoles(modelBuilder, "administrator", "create", "update", "delete");
             SeedRoles(modelBuilder, "editor", "create", "update");

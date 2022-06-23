@@ -14,9 +14,7 @@
     <td>
         @Html.DisplayNameFor(model => category.Name)
     </td>
-    <td>
-        @Html.DisplayNameFor(model => category.Logo)
-    </td>
+  
     <tr>
 
         <a asp-page="/Products/Products" asp-route-id="@category.Id">
@@ -26,9 +24,9 @@
         <th>
             @category.Name
         </th>
-        <th>
+       @* <th>
             @category.Logo
-        </th>
+        </th>*@
     </tr>
     </thead>
 

@@ -27,7 +27,7 @@ namespace Bazaar_Store.Models.Service
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
-               
+           
                 ProductList = category.ProductList.Select(p => new Product
                 {
                     Id = p.Id,
@@ -47,6 +47,7 @@ namespace Bazaar_Store.Models.Service
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
+              
                 ProductList = category.ProductList.Select(p => new Product
                 {
                     Id = p.Id,
@@ -81,6 +82,7 @@ namespace Bazaar_Store.Models.Service
                 Id = category.Id,
                 Name = category.Name,
                 Details = category.Details,
+              
             };
             _context.Entry(Newcategory).State = EntityState.Modified;
             await _context.SaveChangesAsync();
