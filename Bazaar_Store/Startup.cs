@@ -33,7 +33,7 @@ namespace Bazaar_Store
 
 
 
-            services.AddDbContext<BazaarDbcontext>(options =>
+            services.AddDbContext<BazaarDataBase>(options =>
             {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -45,6 +45,7 @@ namespace Bazaar_Store
             services.AddTransient<IUserAdmin, UserAdminServices>();
             services.AddTransient<IUser, UsersService>();
             services.AddTransient<ICart, CartService>();
+            services.AddTransient<IEmail, EmailServices>();
 
 
             services.AddIdentity<Admin, IdentityRole>(options =>
@@ -52,7 +53,7 @@ namespace Bazaar_Store
                 options.User.RequireUniqueEmail = true;
                 // There are other options like this
             })
-             .AddEntityFrameworkStores<BazaarDbcontext>();
+             .AddEntityFrameworkStores<BazaarDataBase>();
             services.ConfigureApplicationCookie(option =>
             {
                 option.AccessDeniedPath = "/Auth/Index";

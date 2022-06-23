@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bazaar_Store.Migrations
 {
-    [DbContext(typeof(BazaarDbcontext))]
-    [Migration("20220622112939_AddTables")]
-    partial class AddTables
+    [DbContext(typeof(BazaarDataBase))]
+    [Migration("20220623053130_BazaarTable")]
+    partial class BazaarTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

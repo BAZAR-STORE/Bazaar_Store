@@ -10,9 +10,9 @@ namespace Bazaar_Store.Models.Service
 {
     public class CartService : ICart
     {
-        private readonly BazaarDbcontext _context;
+        private readonly BazaarDataBase _context;
 
-        public CartService(BazaarDbcontext context)
+        public CartService(BazaarDataBase context)
         {
             _context = context;
         }

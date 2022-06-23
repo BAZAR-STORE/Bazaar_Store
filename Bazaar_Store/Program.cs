@@ -26,7 +26,7 @@ namespace Bazaar_Store
         {
             using (var serviceScope = services.CreateScope())
             {
-                using (var db = serviceScope.ServiceProvider.GetService<BazaarDbcontext>())
+                using (var db = serviceScope.ServiceProvider.GetService<BazaarDataBase>())
                 {
                     db.Database.Migrate();
                 }

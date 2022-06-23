@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bazaar_Store.Migrations
 {
-    [DbContext(typeof(BazaarDbcontext))]
-    partial class BazaarDbcontextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BazaarDataBase))]
+    partial class BazaarDataBaseModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -10,9 +10,9 @@ namespace Bazaar_Store.Models.Serviece
 {
     public class CompanyServieces : ICompany
     {
-        private readonly BazaarDbcontext _context;
+        private readonly BazaarDataBase _context;
 
-        public CompanyServieces(BazaarDbcontext context)
+        public CompanyServieces(BazaarDataBase context)
         {
             _context = context;
         }

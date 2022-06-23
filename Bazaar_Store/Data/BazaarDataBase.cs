@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Bazaar_Store.Data
 {
-    public class BazaarDbcontext : IdentityDbContext<Admin>
+    public class BazaarDataBase : IdentityDbContext<Admin>
     {
 
 
@@ -22,7 +22,7 @@ namespace Bazaar_Store.Data
 
 
 
-        public BazaarDbcontext(DbContextOptions options) : base(options)
+        public BazaarDataBase(DbContextOptions options) : base(options)
         {
 
         }

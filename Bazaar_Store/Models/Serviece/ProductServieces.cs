@@ -13,10 +13,10 @@ namespace Bazaar_Store.Models.Serviece
 {
     public class ProductServieces : IProduct
     {
-        private readonly BazaarDbcontext _context;
+        private readonly BazaarDataBase _context;
         private readonly IConfiguration _configuration;
 
-        public ProductServieces(BazaarDbcontext context, IConfiguration configuration)
+        public ProductServieces(BazaarDataBase context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;

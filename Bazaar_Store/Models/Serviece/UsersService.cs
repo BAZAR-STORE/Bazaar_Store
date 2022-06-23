@@ -10,9 +10,9 @@ namespace Bazaar_Store.Models.Serviece
 {
     public class UsersService : IUser
     {
-        private BazaarDbcontext _context;
+        private BazaarDataBase _context;
 
-        public UsersService(BazaarDbcontext bazaarDbcontext)
+        public UsersService(BazaarDataBase bazaarDbcontext)
         {
             _context = bazaarDbcontext;
         }

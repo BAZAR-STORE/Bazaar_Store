@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bazaar_Store.Migrations
 {
-    public partial class AddTables : Migration
+    public partial class BazaarTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
