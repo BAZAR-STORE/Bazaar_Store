@@ -18,6 +18,8 @@ namespace Bazaar_Store.Pages.Accounts
 
         public List<Product> ProductList { get; set; }
         public List<CartProduct> CartProducts { get; set; }
+        [BindProperty]
+        public string CartCookie { get; set; }
 
         public ProductModel(IProduct product, ICategory category)
         {
@@ -26,7 +28,16 @@ namespace Bazaar_Store.Pages.Accounts
         }
         public async Task OnGet(int Id)
         {
-            ProductList = await ProductServieces.GetProdects();
+            CartCookie = HttpContext.Request.Cookies[$"{User.Identity.Name}'CartsList"];
+            if (CartCookie != null && Id == 0)
+            {
+                ProductList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(CartCookie);
+
+            }
+            else
+            {
+                ProductList = await ProductServieces.GetProdects();
+            }
         }
     }
 }

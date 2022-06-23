@@ -12,9 +12,9 @@ namespace Bazaar_Store.Models.Service
     public class CategoryServieces : ICategory
     {
 
-        private readonly BazaarDbcontext _context;
+        private readonly BazaarDataBase _context;
 
-        public CategoryServieces(BazaarDbcontext context)
+        public CategoryServieces(BazaarDataBase context)
         {
             _context = context;
         }

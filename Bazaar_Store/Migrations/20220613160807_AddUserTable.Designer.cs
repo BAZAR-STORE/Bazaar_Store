@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bazaar_Store.Migrations
 {
-    [DbContext(typeof(BazaarDbcontext))]
+    [DbContext(typeof(BazaarDataBase))]
     [Migration("20220613160807_AddUserTable")]
     partial class AddUserTable
     {

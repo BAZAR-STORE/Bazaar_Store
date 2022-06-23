@@ -34,7 +34,7 @@ namespace Bazaar_Store.Pages.Accounts
             // User p = await PeopleService.Create(user);
             //  I will leave it for your exploration .... 
 
-            await PeopleService.Register(user, this.ModelState);
+           //await PeopleService.Register(user, this.ModelState);
             return RedirectToPage("/Accounts/Login");
         }
 
