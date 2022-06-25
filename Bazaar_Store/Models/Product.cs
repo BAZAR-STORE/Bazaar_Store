@@ -31,6 +31,7 @@ namespace Bazaar_Store.Models
 
         public Category Category { get; set; }
 
+        public int InStock { get; set; }
 
     }
 }

@@ -3,46 +3,68 @@
 @{
 }
 
-
+<link rel="stylesheet" href="~/css/cart.css">
 <div class="body">
-<div class="CartContainer">
-   	   <div class="Header">
-   	   	<h3 class="Heading">Shopping Cart</h3>
-   	   	<h5 class="Action">Remove all</h5>
-   	   </div>
-
-@foreach (var item in @Model.Cart.Products)
-{
-       <div class="Cart-Items">
-   	   	  <div class="image-box">
-   	   	  	<img src="@item.URL" style="height:120px" />
-   	   	  </div>
-   	   	  <div class="about">
-   	   	  	<h1 class="title">@item.Name</h1>
-   	   	  	<h3 class="subtitle"></h3>
-   	   	  	<img src=".\images\veg.png" style="height:20px"/>
-   	   	  </div>
-   	   	  <div class="counter">
-   	   	  	<div class="btn"><a href="/">+</a></div>
-   	   	  	<div class="count">2</div>
-   	   	  	<div class="btn"><a href="/">-</a></div>
-   	   	  </div>
-   	   	  <div class="prices">
-   	   	  	<div class="amount">@item.Price JD</div>
-   	   	  	<div class="remove"><u>Remove</u></div>
-   	   	  </div>
-   	   </div>
-}
-   	 <hr> 
-   	 <div class="checkout">
-   	 <div class="total">
-   	 	<div>
-   	 		<div class="Subtotal">Sub-Total</div>
-   	 		<div class="items">@Model.Cart.TotalQuantity items</div>
-   	 	</div>
-   	 	<div class="total-amount">@Model.Cart.TotalCost JD</div>
-   	 </div>
-   	 <button class="button">Checkout</button></div>
-   </div>
-
+    @if (Model.Cart != null)
+    {
+            <div class="CartContainer">
+                <div class="Header">
+                    <h3 class="Heading">Shopping Cart</h3>
+                    <form asp-page-handler="deleteAll" method="post">
+                        <input type="hidden" name="cartId" value="@Model.Cart.Id">
+                        <button class="Action" type="submit">Remove All</button>
+                    </form>
+                </div>
+                @foreach (var item in @Model.Cart.Products)
+                {
+                    <div class="Cart-Items">
+                        <div class="image-box">
+                        </div>
+                        <div class="about">
+                            <h1 class="title">@item.Name</h1>
+                            <h3 class="subtitle"></h3>
+                        </div>
+                        <div class="counter">
+                            <form asp-page-handler="add" method="post">
+                                <input type="hidden" name="productId" value="@item.Id">
+                                <input type="hidden" name="cartId" value="@Model.Cart.Id">
+                                <button class="btn" type="submit">+</button>
+                            </form>
+                            <div class="count">@item.Quantity</div>
+                            <form asp-page-handler="delete" method="post">
+                                <input type="hidden" name="productId" value="@item.Id">
+                                <input type="hidden" name="cartId" value="@Model.Cart.Id">
+                                <button class="btn" type="submit">-</button>
+                            </form>
+                        </div>
+                        <div class="prices">
+                            <div class="amount">@item.Price JD</div>
+                            <form asp-page-handler="remove" method="post">
+                                <input type="hidden" name="productId" value="@item.Id">
+                                <input type="hidden" name="cartId" value="@Model.Cart.Id">
+                                <button class="remove" type="submit">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+                <hr> 
+                <div class="checkout">
+                    <div class="total">
+                        <div>
+                            <div class="Subtotal">Sub-Total</div>
+                            <div class="items">@Model.Cart.TotalQuantity items</div>
+                        </div>
+                        <div class="total-amount">@Model.Cart.TotalCost JD</div>
+                    </div>
+                      <a class="nav-link" href="emailsend">Checkout</a>
+                    @*<button class="nav-link" href="/emailsend" class="button">Checkout</button>*@
+                </div>
+            </div>
+      
+    }else
+    {
+        <div class="CartContainerempty">
+            <img src = "https://cdn3.iconfinder.com/data/icons/shopping-and-ecommerce-29/90/empty_cart-512.png" />
+            </div>
+    }
    </div>

@@ -4,14 +4,16 @@ using Bazaar_Store.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bazaar_Store.Migrations
 {
     [DbContext(typeof(BazaarDataBase))]
-    partial class BazaarDataBaseModelSnapshot : ModelSnapshot
+    [Migration("20220623054950_AddTables")]
+    partial class AddTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace Bazaar_Store.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Bazaar_Store.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Bazaar_Store.Models.Admin", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -267,9 +269,6 @@ namespace Bazaar_Store.Migrations
                     b.Property<string>("DiscountPrice")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InStock")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -298,7 +297,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 1,
                             Description = "Comfort for running",
                             DiscountPrice = "0%",
-                            InStock = 0,
                             Name = "Nike Shoes",
                             Price = 12.0,
                             TodaysDeals = "F"
@@ -310,7 +308,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 1,
                             Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436",
                             DiscountPrice = "15%",
-                            InStock = 0,
                             Name = "IBM",
                             Price = 11.300000000000001,
                             TodaysDeals = "T"
@@ -322,7 +319,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 1,
                             Description = "easy to use",
                             DiscountPrice = "5%",
-                            InStock = 0,
                             Name = "HP",
                             Price = 635.89999999999998,
                             TodaysDeals = "F"
@@ -334,7 +330,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "0%",
-                            InStock = 0,
                             Name = "L.A. Girl",
                             Price = 9.0999999999999996,
                             TodaysDeals = "T"
@@ -346,7 +341,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "50%",
-                            InStock = 0,
                             Name = "L'Oreal",
                             Price = 25.600000000000001,
                             TodaysDeals = "T"
@@ -358,7 +352,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -370,7 +363,6 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -382,131 +374,34 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            BarCode = 78413566,
-                            CategoryId = 4,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            BarCode = 78413566,
-                            CategoryId = 4,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            BarCode = 78413566,
-                            CategoryId = 4,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            BarCode = 78413566,
-                            CategoryId = 5,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            BarCode = 78413566,
-                            CategoryId = 5,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            BarCode = 78413566,
-                            CategoryId = 5,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            BarCode = 78413566,
-                            CategoryId = 6,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            BarCode = 78413566,
-                            CategoryId = 6,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            BarCode = 78413566,
-                            CategoryId = 6,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
-                            Name = "Deall",
-                            Price = 400.5,
-                            TodaysDeals = "F"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            BarCode = 78413566,
-                            CategoryId = 6,
-                            Description = "Comfort for running",
-                            DiscountPrice = "30%",
-                            InStock = 0,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
                         });
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -709,11 +604,11 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Bazaar_Store.Models.Cart", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.ApplicationUser", "User")
+                    b.HasOne("Bazaar_Store.Models.Admin", "admin")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("User");
+                    b.Navigation("admin");
                 });
 
             modelBuilder.Entity("Bazaar_Store.Models.CartProduct", b =>
@@ -757,7 +652,7 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.ApplicationUser", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -766,7 +661,7 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.ApplicationUser", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -781,7 +676,7 @@ namespace Bazaar_Store.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bazaar_Store.Models.ApplicationUser", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -790,7 +685,7 @@ namespace Bazaar_Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Bazaar_Store.Models.ApplicationUser", null)
+                    b.HasOne("Bazaar_Store.Models.Admin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Bazaar_Store.Data
 {
-    public class BazaarDataBase : IdentityDbContext<Admin>
+    public class BazaarDataBase : IdentityDbContext<ApplicationUser>
     {
 
 
@@ -18,7 +18,7 @@ namespace Bazaar_Store.Data
         public DbSet<CartProduct> CartProduct { get; set; }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<User> User { get; set; }
+     
 
 
 
@@ -42,7 +42,17 @@ namespace Bazaar_Store.Data
                   new Product { Id = 5, Name = "L'Oreal", Price =25.6, BarCode = 0235752, DiscountPrice = "50%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2 },
                   new Product { Id = 7, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
                   new Product { Id = 8, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
-                  new Product { Id = 9, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 }
+                  new Product { Id = 9, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
+                  new Product { Id = 10, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4 },
+                  new Product { Id = 11, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4 },
+                  new Product { Id = 12, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4 },
+                  new Product { Id = 13, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5 },
+                  new Product { Id = 14, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5 },
+                  new Product { Id = 15, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5 },
+                  new Product { Id = 16, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 },
+                  new Product { Id = 17, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 },
+                  new Product { Id = 18, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 },
+                  new Product { Id = 19, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 }
                   );
 
             modelBuilder.Entity<Company>().HasData(

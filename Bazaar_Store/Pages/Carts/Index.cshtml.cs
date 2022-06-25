@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Bazaar_Store.Pages.Carts
 {
@@ -20,30 +22,45 @@ namespace Bazaar_Store.Pages.Carts
 
         public CartDTO Cart { get; set; }
 
-        public async Task OnGet(int id)
+        public async Task OnGet()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            Cart = await _cart.GetUserCart(userId);
-
+            CartDTO userCart = await _cart.GetUserCart(userId);
+            if (userCart != null)
+            {
+                Cart = await _cart.GetCart(userCart.Id);
+                foreach (var item in Cart.Products)
+                {
+                    item.Quantity = _cart.GetProductQuantity(Cart.Id, item.Id);
+                }
+            }
             if (Cart == null)
             {
-                Cart newCart = new Cart
-                {
-                    TotalCost = 0,
-                    TotalQuantity = 0,
-                    UserId = userId
-                };
-
-                Cart = await _cart.Create(newCart);
-                await _cart.AddProductToCart(Cart.Id , id);
+                Response.Cookies.Delete("count");
             }
-            else
-            {
-                await _cart.AddProductToCart(Cart.Id, id);
-            }
+        }
 
-            Cart = await _cart.GetCart(Cart.Id);
+        public async Task<IActionResult> OnPostDelete(int cartId ,int productId)
+        {
+            await _cart.RemoveProductFromCart(cartId , productId);
+
+            return Redirect("/Carts");
+        }
+
+        public async Task<IActionResult> OnPostDeleteAll(int cartId)
+        {
+            await _cart.Delete(cartId);
+            return Redirect("/Carts");
+        }
+        public async Task<IActionResult> OnPostRemove(int cartId, int productId)
+        {
+            await _cart.RemoveCartProduct(cartId, productId);
+            return Redirect("/Carts");
+        }
+        public async Task<IActionResult> OnPostAdd(int cartId, int productId)
+        {
+            await _cart.AddProductToCart(cartId, productId);
+            return Redirect("/Carts");
         }
     }
 }

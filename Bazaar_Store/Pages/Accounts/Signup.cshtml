@@ -1,0 +1,35 @@
+﻿@page
+@model Bazaar_Store.Pages.Accounts.SignupModel
+@{
+}
+
+<div class="container">
+  <form class="form" method="post">
+    <br />
+    <br />
+    <label>
+        <span>Username</span>
+    </label>
+    <br />
+    <input id="input" asp-for="registerData.UserName"/>
+    <br />
+    <label>
+        <span>Email</span>
+    </label>
+    <br />
+    <input id="input" asp-for="registerData.Email"/>
+    <br />
+    <label>
+        <span>Password</span>
+    </label>
+    <br />
+    <input id="input" type="password" asp-for="registerData.Password"/>
+    <br />
+    <button id="submit" type="submit">SignUp</button>
+</form>
+<br />
+<br />
+<span>Already have an account</span>
+<a href="/accounts/">LogIn</a>
+<div class="no-bullets" asp-validation-summary="All"></div>
+</div>
