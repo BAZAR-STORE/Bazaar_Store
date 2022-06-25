@@ -1,78 +1,75 @@
-﻿using Bazaar_Store.Models;
-using Bazaar_Store.Models.DTOs;
+﻿using Bazaar_Store.Models.DTOs;
 using Bazaar_Store.Models.Interface;
-using Bazaar_Store.Models.Serviece;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bazaar_Store.Contollers
+namespace Bazaar_Store.Controllers
 {
+    [Authorize(Roles = "administrator,editor")]
     public class AuthController : Controller
     {
-        private IUserAdmin _IdentityuserServices;
-        public AuthController(IUserAdmin userSer)
+        private readonly IUserService _userService;
+
+        public AuthController(IUserService userService)
         {
-            _IdentityuserServices = userSer;
+            _userService = userService;
         }
+
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public async Task Logout()
-        {
-            await _IdentityuserServices.Logout();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<UserAdminDto>> Login(RegisterUser register)
-        {
-            var user = await _IdentityuserServices.Register(register, this.ModelState);
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                return Redirect("/");
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
+
         public IActionResult SignUp()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _userService.Logout();
+
+            return RedirectToAction("Index","Home");
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserAdminDto>> SignUp(RegisterUser register)
+        public async Task<ActionResult<UserDto>> SignUp(RegisterDto register)
         {
-            var user = await _IdentityuserServices.Register(register, this.ModelState);
+            if (register.UserName != null && register.Email != null && register.Password != null)
+            {
+                await _userService.Register(register, this.ModelState);
+            }
+
             if (ModelState.IsValid)
             {
-                return Redirect("/");
+                return Redirect("/home/index");
             }
+
             return View();
         }
-
-        public async Task<ActionResult<UserAdminDto>> Authenticate(LoginAdminDTO login)
+        [HttpPost]
+        public async Task<ActionResult<UserDto>> Index(LoginDto login)
         {
-            var user = await _IdentityuserServices.Authenticate(login.UserName, login.Password);
-            if (user == null)
+            if (login.Username != null && login.Password != null)
             {
-                return RedirectToAction("Index");
+                var user = await _userService.Authenticate(login.Username, login.Password);
+                if(user != null)
+                {
+                    return Redirect("/home/index");
+                }
+                ModelState.AddModelError("NotMatch", "Username and Passowrd not match");
+                return View();
             }
-            return Redirect("/");
-        }
-        public IActionResult List()
-        {
-            List<Admin> Users = new List<Admin>();
-
-
-            return View(Users);
+            return View();
         }
     }
 }

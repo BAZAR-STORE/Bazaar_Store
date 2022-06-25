@@ -1,0 +1,39 @@
+﻿@page
+@model Bazaar_Store.Pages.Products.IndexModel;
+@using Bazaar_Store.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> signInManager
+@{
+}
+
+
+@foreach (var item in Model.Product)
+{
+       <div class="card">
+          <div class="photo">
+            <img src="@item.URL">
+          </div>
+          <div class="description">
+            <h2>@item.Name</h2>
+            <h4>@item.CategoryName</h4>
+            <h1>@item.Price JD</h1>
+            <p>@item.Description</p>
+            @if(item.InStock == 0)
+            {
+                <h2 style="color:red;padding-top:40px;">OUT OF STOCK</h2>
+            }
+            else
+            {
+                <h1>InStock : @item.InStock</h1>
+            }
+            @if(signInManager.IsSignedIn(User) && item.InStock != 0)
+            {
+                    <form method="post" >
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <input type="hidden" name="cartId" value="@Model.CartId" />
+                    <button>Add to Cart</button>
+                    </form>
+            }
+          </div>
+        </div>
+}

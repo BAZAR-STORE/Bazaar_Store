@@ -1,0 +1,23 @@
+﻿@page
+@model Bazaar_Store.Pages.IndexModel
+@{
+}
+
+
+@foreach (var item in @Model.category)
+{
+    <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://resources.workable.com/wp-content/uploads/2016/01/category-manager-640x230.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5>@item.Name</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+     <form method="post">
+             <input type="hidden" name="id" value="@item.Id" />
+    <button href="#" class="btn btn-primary">Shop Now</button>
+            </form>
+
+  </div>
+</div>
+}
+
+        

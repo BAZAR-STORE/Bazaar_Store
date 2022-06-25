@@ -1,12 +1,22 @@
-﻿<!DOCTYPE html>
+﻿@using Bazaar_Store.Models
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> signInManager
+
+
+<!DOCTYPE html>
     <html >
     <head>
+          <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href='https://css.gg/shopping-cart.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <title>@ViewBag.Title </title>
 
-
         <link href ="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet"/>
-        
-        @await Component.InvokeAsync("CartCount")
+       
     </head>
     <body >
 
@@ -23,13 +33,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="~/Home">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="~/index">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="~/Company">Companies</a>
       </li>
 <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="~/Category" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="~/Home/Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -40,22 +50,31 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="~/Product">Products</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="#">Today's Deals</a>
       </li>
+                  
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item" ><a class="nav-link"> @Html.ActionLink($"Welcome {@User.Identity.Name}", "", "")</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Accounts/Logout">Logout</a></li>
+                    }else
+                    {
+
+                        <li class="nav-link"><a class="nav-link" href="/accounts/signup">Signup</a></li>
+                        <li class="nav-link"><a class="nav-link" href="/accounts">Login</a></li>
+                    }
+                    @await Component.InvokeAsync("CartCount")
+                    <li><a id="cart" class="fa fa-shopping-cart" href="/Carts/"></a></li>
+              
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
     </form>
   </div>
 </nav>
     <div class="text-center">
-       
         <h1 class="display-4" style="color:darkgreen" text-l> Bazaar Store</h1>
-
     </div>
      <div >
     @RenderBody()

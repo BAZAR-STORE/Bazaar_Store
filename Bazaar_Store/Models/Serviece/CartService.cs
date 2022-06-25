@@ -65,8 +65,10 @@ namespace Bazaar_Store.Models.Service
             return carts;
         }
 
-        public async  Task<CartDTO> GetCart(int id)
+        public async Task<CartDTO> GetCart(int id)
         {
+            Cart cartdata = await _context.Carts.FindAsync(id);
+
             CartDTO cart = await _context.Carts.Select(cart => new CartDTO
             {
                 Id = cart.Id,
@@ -84,32 +86,13 @@ namespace Bazaar_Store.Models.Service
                 }).ToList()
             }).FirstOrDefaultAsync(c => c.Id == id);
 
-            Cart cartTotal = await _context.Carts.Where(x => x.Id == cart.Id ).FirstAsync();
+            cart.TotalCost = ReturnTotalCost(cart);
+            cart.TotalQuantity = GetProductQuantity(cart);
 
-            cartTotal.TotalCost = ReturnTotalCost(cart);
-
-            cartTotal.TotalQuantity = GetProductQuantity(cart);
+            cartdata.TotalCost = cart.TotalCost;
+            cartdata.TotalQuantity = cart.TotalQuantity;
 
             await _context.SaveChangesAsync();
-
-            cart = await _context.Carts.Select(cart => new CartDTO
-            {
-                Id = cart.Id,
-                TotalCost = cart.TotalCost,
-                TotalQuantity = cart.TotalQuantity,
-                UserId = cart.UserId,
-                Products = cart.CartProducts.Select(cp => new ProductDTO
-                {
-                    Id = cp.Products.Id,
-                    Name = cp.Products.Name,
-                    Price = cp.Products.Price,
-                    Description = cp.Products.Description,
-                    URL = cp.Products.URL,
-                    CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == cp.Products.CategoryId).Name
-                }).ToList()
-            }).FirstOrDefaultAsync(c => c.Id == id);
-
-
 
             return cart;
         }
@@ -121,14 +104,7 @@ namespace Bazaar_Store.Models.Service
             {
                 return null;
             }
-            CartDTO CartDTO = new CartDTO
-            {
-                Id = userCart.Id,
-                TotalCost = userCart.TotalCost,
-                TotalQuantity = userCart.TotalQuantity,
-                UserId = userId
-            };
-
+            CartDTO CartDTO = await GetCart(userCart.Id);
             return CartDTO;
         }
 
@@ -149,6 +125,13 @@ namespace Bazaar_Store.Models.Service
 
         public async Task Delete(int id)
         {
+            List<CartProduct> cartProducts = await _context.CartProduct.Where(cp => cp.CartId == id).ToListAsync();
+            Product productStock;
+            foreach (var item in cartProducts)
+            {
+                productStock = await _context.Products.FindAsync(item.ProductId);
+                productStock.InStock += item.Quantity;
+            }
             Cart cart = await _context.Carts.FindAsync(id);
             _context.Entry(cart).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
@@ -159,39 +142,73 @@ namespace Bazaar_Store.Models.Service
             var existsCartProduct = _context.CartProduct.Any(cp => cp.ProductId == productId && cp.CartId == cartId);
             Product productStock = await _context.Products.FindAsync(productId);
 
-               
-        }
-        public async Task RemoveProductFromCart(int cartId, int productId)
-        {
-            var existsCartProduct = _context.CartProduct.Any(cp => cp.ProductId == productId && cp.CartId == cartId);
-            if (existsCartProduct)
+            if (productStock.InStock > 0)
             {
-                CartProduct removeProduct = await _context.CartProduct.Where(x => x.ProductId == productId && x.CartId == cartId).FirstAsync();
-                Product productStock = await _context.Products.FindAsync(productId);
-                if (removeProduct.Quantity > 1)
+                if (existsCartProduct)
                 {
-                    removeProduct.Quantity -= 1;
+                    CartProduct cartProduct = await _context.CartProduct.Where(x => x.ProductId == productId && x.CartId == cartId).FirstAsync();
+                    cartProduct.Quantity += 1;
+                    productStock.InStock -= 1;
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
-                    _context.Entry(removeProduct).State = EntityState.Deleted;
+                    CartProduct cartProduct = new CartProduct()
+                    {
+                        ProductId = productId,
+                        CartId = cartId,
+                        Quantity = 1
+                    };
+
+                    productStock.InStock -= 1;
+                    _context.Entry(cartProduct).State = EntityState.Added;
                     await _context.SaveChangesAsync();
                 }
             }
         }
+        public async Task RemoveProductFromCart(int cartId, int productId)
+        {
+            CartProduct removeProduct = await _context.CartProduct.Where(x => x.ProductId == productId && x.CartId == cartId).FirstAsync();
+            Product productStock = await _context.Products.FindAsync(productId);
+            if (removeProduct.Quantity > 1)
+            {
+                removeProduct.Quantity -= 1;
+                productStock.InStock += 1;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                productStock.InStock += 1;
+                _context.Entry(removeProduct).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task RemoveCartProduct(int cartId, int productId)
+        {
+            CartProduct removeProduct = await _context.CartProduct.Where(x => x.ProductId == productId && x.CartId == cartId).FirstAsync();
+            Product productStock = await _context.Products.FindAsync(productId);
+            productStock.InStock += removeProduct.Quantity;
+            _context.Entry(removeProduct).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+        }
+
+        public int GetProductQuantity(int cartId, int productId)
+        {
+            int ProductQuantity = _context.CartProduct.FirstOrDefault(c => c.CartId == cartId && c.ProductId == productId).Quantity;
+            return ProductQuantity;
+        }
 
         private double ReturnTotalCost(CartDTO cart)
         {
-                List<int> QuantityList = _context.CartProduct.Where(cp => cp.CartId == cart.Id).Select(q => q.Quantity).ToList();
-                double Total = 0;
-                int count = 0;
-                foreach (var item in cart.Products)
-                {
-                    Total += item.Price * QuantityList[0];
-                    count++;
-                }
-                return Total;
+            List<int> QuantityList = _context.CartProduct.Where(cp => cp.CartId == cart.Id).Select(q => q.Quantity).ToList();
+            double Total = 0;
+            int count = 0;
+            foreach (var item in cart.Products)
+            {
+                Total += item.Price * QuantityList[0];
+                count++;
+            }
+            return Total;
         }
 
         private int GetProductQuantity(CartDTO cart)

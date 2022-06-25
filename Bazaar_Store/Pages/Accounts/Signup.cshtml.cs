@@ -6,37 +6,39 @@ using System.Threading.Tasks;
 
 namespace Bazaar_Store.Pages.Accounts
 {
-    public class IndexModel : PageModel
+    public class SignupModel : PageModel
     {
         private readonly IUserService _userService;
 
         [BindProperty]
-        public LoginDto loginData { get; set; }
+        public RegisterDto registerData { get; set; }
 
-        public IndexModel(IUserService userService)
+        public SignupModel(IUserService userService)
         {
             _userService = userService;
         }
 
         public void OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                 RedirectToAction("Index", "Auth");
+            }
         }
 
         public async Task<IActionResult> OnPost()
         {
-            if (loginData.Username != null && loginData.Password != null)
+            if (registerData.UserName != null && registerData.Email != null && registerData.Password != null)
             {
-                var user = await _userService.Authenticate(loginData.Username, loginData.Password);
-                if (user == null)
-                {
-                    ModelState.AddModelError("loginData.Password", "Password and username not match");
-                }
+                await _userService.Register(registerData, this.ModelState);
             }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            return Redirect("/Home");
+
+           return Redirect("/accounts");
         }
     }
 }

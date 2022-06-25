@@ -22,6 +22,8 @@ namespace Bazaar_Store.Models.DTOs
         public Char TodaysDeals { get; set; }
         public string URL { get; set; }
         public string CategoryName { get; set; }
+        public int Quantity { get; set; }
+        public int InStock { get; set; }
 
     }
 }

@@ -35,6 +35,7 @@ namespace Bazaar_Store.Models.Service
                     Price = p.Price,
                     Description = p.Description,
                     URL = p.URL,
+                    InStock = p.InStock,
                     CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == p.CategoryId).Name
                 }).ToList()
             }).FirstOrDefaultAsync(a => a.Id == id);
@@ -54,6 +55,7 @@ namespace Bazaar_Store.Models.Service
                     Name = p.Name,
                     Price = p.Price,
                     Description = p.Description,
+                    InStock = p.InStock,
                     URL = p.URL,
                     CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == p.CategoryId).Name
                 }).ToList()

@@ -11,7 +11,7 @@ namespace Bazaar_Store.Models
         public int TotalQuantity { get; set; }
 
         //ForeignKey
-        public Admin admin { get; set; }
+        public ApplicationUser User { get; set; }
         [ForeignKey("admin")]
         public string UserId { get; set; }
         //Navigation properties

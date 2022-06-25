@@ -38,6 +38,7 @@ namespace Bazaar_Store.Models.Serviece
                 Description = product.Description,
                 TodaysDeals = product.TodaysDeals,
                 URL = product.URL,
+                InStock = product.InStock,
                 CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name,
             };
             return Newprodect;
@@ -63,6 +64,7 @@ namespace Bazaar_Store.Models.Serviece
                 Description = product.Description,
                 TodaysDeals = product.TodaysDeals,
                 URL = product.URL,
+                InStock = product.InStock,
                 CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name
 
 
@@ -80,6 +82,7 @@ namespace Bazaar_Store.Models.Serviece
                 Description = product.Description,
                 TodaysDeals = product.TodaysDeals,
                 URL = product.URL,
+                InStock = product.InStock,
                 CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name
 
             }).ToListAsync();
@@ -95,6 +98,7 @@ namespace Bazaar_Store.Models.Serviece
                 Price = product.Price,
                 Description = product.Description,
                 URL = product.URL,
+                InStock = product.InStock,
                 TodaysDeals = product.TodaysDeals,
                 CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name
             };

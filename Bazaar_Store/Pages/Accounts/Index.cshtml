@@ -2,13 +2,31 @@
 @model Bazaar_Store.Pages.Accounts.IndexModel
 @{
 }
-<h2> welcome to the site  </h2>
 
-@if(@Model.user != null)
-{
-    @foreach(var user in @Model.user)
-    {
-       @* <a asp-page="/accounts/the name of the page" asp-route-id="@person.Id" ></a>*@
-        <div>Name: @user.Name is @user.Age  $... </div>
-    }
-}
+<div class="container">
+  <form class="form" method="post">
+    <br />
+    <br />
+    <label>
+        <span>UserName</span>
+    </label>
+    <br />
+    <input id="input" type="text" asp-for="loginData.Username"/>
+    <span asp-validation-for="loginData.Username" class="text-danger"></span>
+    <br />
+    <br />
+    <label>
+        <span>Password</span>
+    </label>
+    <br />
+    <input id="input" type="password" asp-for="loginData.Password"/>
+    <span asp-validation-for="loginData.Password" class="text-danger"></span>
+    <br />
+    <br />
+    <button id="submit" type="submit">Login</button>
+</form>
+<br />
+<br />
+<span>Not a member?</span>
+<a href="/accounts/signup">SignUp</a>
+</div>

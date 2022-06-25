@@ -1,9 +1,32 @@
-﻿<form class="align-bottom" method="post" action="#">
-    <label>Name:</label>
-    <input name="UserName" />
-    <label>Password:</label>
-    <input name="Password" />
-    <label>Email:</label>
-    <input name="Email" />
-    <button type="submit">SignUP</button>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Bazaar_Store.Models.DTOs.RegisterDto
+
+<form asp-controller="Auth" asp-action="SignUp" method="post">
+    <br />
+    <br />
+    <label>
+        <span>UserName</span>
+    </label>
+    <br />
+    <input asp-for="@Model.UserName"/>
+    @Html.ValidationMessageFor(x => x.UserName)
+    <br />
+    <label>
+        <span>Password</span>
+    </label>
+    <br />
+    <input type="password" asp-for="@Model.Password"/>
+    @Html.ValidationMessageFor(x => x.Password)
+    <br />
+    <label>
+        <span>Email</span>
+    </label>
+    <br />
+    <input type="email" asp-for="@Model.Email"/>
+    @Html.ValidationMessageFor(x => x.Email)
+    <br />
+    <br />
+    <button type="submit">SignUp</button>
 </form>
+
+<div asp-validation-summary="All"></div>
