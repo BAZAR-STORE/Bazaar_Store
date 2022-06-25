@@ -5,6 +5,7 @@ using Bazaar_Store.Models.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,6 +46,24 @@ namespace Bazaar_Store.Models.Serviece
 
         }
 
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            Product Newprodect = new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                BarCode = product.BarCode,
+                Price = product.Price,
+                Description = product.Description,
+                URL = product.URL,
+                InStock = product.InStock,
+                TodaysDeals = product.TodaysDeals,
+                CategoryName = _context.Categories.FirstOrDefault(cat => cat.Id == product.CategoryId).Name
+            };
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Newprodect;
+        }
 
         public async Task Delete(int Id)
         {

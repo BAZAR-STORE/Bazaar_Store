@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bazaar_Store.Migrations
 {
-    public partial class AddTables : Migration
+    public partial class BazaarTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,22 +72,6 @@ namespace Bazaar_Store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Age = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,7 +215,8 @@ namespace Bazaar_Store.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TodaysDeals = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InStock = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -311,27 +296,37 @@ namespace Bazaar_Store.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
                 values: new object[,]
                 {
-                    { 1, "permissions", "create", "administrator" },
-                    { 2, "permissions", "update", "administrator" },
-                    { 3, "permissions", "delete", "administrator" },
+                    { 6, "permissions", "create", "user" },
                     { 4, "permissions", "create", "editor" },
-                    { 5, "permissions", "update", "editor" },
-                    { 6, "permissions", "create", "user" }
+                    { 3, "permissions", "delete", "administrator" },
+                    { 2, "permissions", "update", "administrator" },
+                    { 1, "permissions", "create", "administrator" },
+                    { 5, "permissions", "update", "editor" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BarCode", "CategoryId", "CategoryName", "Description", "DiscountPrice", "Name", "Price", "TodaysDeals", "URL" },
+                columns: new[] { "Id", "BarCode", "CategoryId", "CategoryName", "Description", "DiscountPrice", "InStock", "Name", "Price", "TodaysDeals", "URL" },
                 values: new object[,]
                 {
-                    { 1, 34645768, 1, null, "Comfort for running", "0%", "Nike Shoes", 12.0, "F", null },
-                    { 2, 4534676, 1, null, "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", "15%", "IBM", 11.300000000000001, "T", null },
-                    { 3, 985012, 1, null, "easy to use", "5%", "HP", 635.89999999999998, "F", null },
-                    { 4, 1403875, 2, null, "Safe on the skin", "0%", "L.A. Girl", 9.0999999999999996, "T", null },
-                    { 5, 235752, 2, null, "Safe on the skin", "50%", "L'Oreal", 25.600000000000001, "T", null },
-                    { 7, 78413566, 3, null, "Comfort for running", "30%", "Deall", 400.5, "F", null },
-                    { 8, 78413566, 3, null, "Comfort for running", "30%", "Deall", 400.5, "F", null },
-                    { 9, 78413566, 3, null, "Comfort for running", "30%", "Deall", 400.5, "F", null }
+                    { 19, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 18, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 17, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 16, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 15, 78413566, 5, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 14, 78413566, 5, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 13, 78413566, 5, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 11, 78413566, 4, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 10, 78413566, 4, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 9, 78413566, 3, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 8, 78413566, 3, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 7, 78413566, 3, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 5, 235752, 2, null, "Safe on the skin", "50%", 0, "L'Oreal", 25.600000000000001, "T", null },
+                    { 4, 1403875, 2, null, "Safe on the skin", "0%", 0, "L.A. Girl", 9.0999999999999996, "T", null },
+                    { 3, 985012, 1, null, "easy to use", "5%", 0, "HP", 635.89999999999998, "F", null },
+                    { 2, 4534676, 1, null, "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", "15%", 0, "IBM", 11.300000000000001, "T", null },
+                    { 12, 78413566, 4, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
+                    { 1, 34645768, 1, null, "Comfort for running", "0%", 0, "Nike Shoes", 12.0, "F", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -411,9 +406,6 @@ namespace Bazaar_Store.Migrations
 
             migrationBuilder.DropTable(
                 name: "Companies");
-
-            migrationBuilder.DropTable(
-                name: "User");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

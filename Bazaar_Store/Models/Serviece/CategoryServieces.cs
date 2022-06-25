@@ -62,6 +62,20 @@ namespace Bazaar_Store.Models.Service
             }).ToListAsync();
         }
 
+        public async Task<Category> UpdateCategory(Category category)
+        {
+            Category Newcategory = new Category
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Details = category.Details,
+
+            };
+            _context.Entry(Newcategory).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return category;
+        }
+
         public async Task<Category> Create(Category category)
         {
 
