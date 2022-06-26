@@ -44,11 +44,6 @@ namespace Bazaar_Store
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
-            services.AddTransient<ICompany, CompanyServieces>();
-            services.AddTransient<IProduct, ProductServieces>();
-            services.AddTransient<ICategory, CategoryServieces>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ICart, CartService>();
 
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -63,6 +58,13 @@ namespace Bazaar_Store
             });
             services.AddAuthentication();
             services.AddAuthorization();
+
+            services.AddTransient<ICompany, CompanyServieces>();
+            services.AddTransient<IProduct, ProductServieces>();
+            services.AddTransient<ICategory, CategoryServieces>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICart, CartService>();
+            
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(Configuration["ConnectionStrings:AzureBlob:blob"], preferMsi: true);
@@ -79,6 +81,7 @@ namespace Bazaar_Store
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -89,7 +92,6 @@ namespace Bazaar_Store
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
             });
 
-            app.UseStaticFiles();
 
         }
     }
