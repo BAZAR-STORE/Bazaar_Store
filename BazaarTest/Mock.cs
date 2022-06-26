@@ -22,8 +22,8 @@ namespace BazaarTest
             _connection.Open();
 
             _db = new BazaarDataBase(
-                new DbContextOptionsBuilder<BazaarDataBase>()
-                  .UseSqlite(_connection)
+                new DbContextOptionsBuilder<BazaarDataBase>().UseSqlServer(_connection)
+                 
               // .UseSqlServer(_connection)
                     .Options);
 
