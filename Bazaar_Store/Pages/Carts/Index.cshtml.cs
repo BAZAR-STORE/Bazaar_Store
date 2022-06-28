@@ -25,18 +25,22 @@ namespace Bazaar_Store.Pages.Carts
         public async Task OnGet()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            CartDTO userCart = await _cart.GetUserCart(userId);
-            if (userCart != null)
+            //Zero mean user cart is open
+            if (_cart.GetCartByUserId(userId, 0))
             {
-                Cart = await _cart.GetCart(userCart.Id);
-                foreach (var item in Cart.Products)
+                CartDTO userCart = await _cart.GetUserCart(userId, 0);
+                if (userCart != null)
                 {
-                    item.Quantity = _cart.GetProductQuantity(Cart.Id, item.Id);
+                    Cart = await _cart.GetCart(userCart.Id);
+                    foreach (var item in Cart.Products)
+                    {
+                        item.Quantity = _cart.GetProductQuantity(Cart.Id, item.Id);
+                    }
                 }
-            }
-            if (Cart == null)
-            {
-                Response.Cookies.Delete("count");
+                if (Cart == null)
+                {
+                    Response.Cookies.Delete("count");
+                }
             }
         }
 

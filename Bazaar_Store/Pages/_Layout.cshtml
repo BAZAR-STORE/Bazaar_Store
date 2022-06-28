@@ -7,15 +7,19 @@
 <!DOCTYPE html>
     <html >
     <head>
+                <link href ="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet"/>
+                <link href ="~/css/site.css" rel="stylesheet"/>
+                    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
           <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href='https://css.gg/shopping-cart.css' rel='stylesheet'>
-    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <title>@ViewBag.Title </title>
 
-        <link href ="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet"/>
        
     </head>
     <body >
@@ -35,18 +39,16 @@
       <li class="nav-item active">
         <a class="nav-link" href="~/index">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="~/Company">Companies</a>
-      </li>
+     
 <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="~/Home/Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="~/Products/3">Tablet</a>
+          <a class="dropdown-item" href="~/Products/1">Shose</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="~/Products/6">Foundation</a>
         </div>
       </li>
       <li class="nav-item">
@@ -79,6 +81,11 @@
      <div >
     @RenderBody()
     </div >
+             
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     </body >
 

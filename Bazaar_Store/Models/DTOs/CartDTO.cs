@@ -10,5 +10,6 @@ namespace Bazaar_Store.Models.DTOs
         public string UserId { get; set; }
         // To Many to many Relation between Cart And Product
         public List<ProductDTO> Products { get; set; }
+        public int State { get; set; }
     }
 }

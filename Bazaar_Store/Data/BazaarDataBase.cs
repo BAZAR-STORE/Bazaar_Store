@@ -10,16 +10,16 @@ namespace Bazaar_Store.Data
     public class BazaarDataBase : IdentityDbContext<ApplicationUser>
     {
 
-
+        public DbSet<Checkout> Checkout { get; set; }
+        public DbSet<Contact> Contact { get; set; }
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartProduct> CartProduct { get; set; }
+    
 
         public DbSet<Category> Categories { get; set; }
-     
-
 
 
         public BazaarDataBase(DbContextOptions options) : base(options)
@@ -35,24 +35,24 @@ namespace Bazaar_Store.Data
 
 
             modelBuilder.Entity<Product>().HasData(
-                  new Product { Id = 1, Name = "Nike Shoes", Price = 12.0, BarCode = 34645768, DiscountPrice = "0%", Description = "Comfort for running", TodaysDeals = 'F' ,CategoryId = 1},
-                  new Product { Id = 2, Name = "IBM", Price = 11.3, BarCode = 4534676, DiscountPrice = "15%", Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", TodaysDeals = 'T', CategoryId = 1 },
-                  new Product { Id = 3, Name = "HP", Price = 635.9, BarCode = 985012, DiscountPrice = "5%", Description = "easy to use", TodaysDeals = 'F', CategoryId = 1 },
-                  new Product { Id = 4, Name = "L.A. Girl", Price = 9.1, BarCode = 1403875, DiscountPrice = "0%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2 },
-                  new Product { Id = 5, Name = "L'Oreal", Price =25.6, BarCode = 0235752, DiscountPrice = "50%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2 },
-                  new Product { Id = 7, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
-                  new Product { Id = 8, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
-                  new Product { Id = 9, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3 },
-                  new Product { Id = 10, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4 },
-                  new Product { Id = 11, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4 },
-                  new Product { Id = 12, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4 },
-                  new Product { Id = 13, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5 },
-                  new Product { Id = 14, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5 },
-                  new Product { Id = 15, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5 },
-                  new Product { Id = 16, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 },
-                  new Product { Id = 17, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 },
-                  new Product { Id = 18, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 },
-                  new Product { Id = 19, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6 }
+                  new Product { Id = 1, Name = "Nike Shoes", Price = 12.0, BarCode = 34645768, DiscountPrice = "0%", Description = "Comfort for running", TodaysDeals = 'F' ,CategoryId = 1,URL= "https://icon-library.com/images/120-512_84746.png",InStock=23 },
+                  new Product { Id = 2, Name = "IBM", Price = 11.3, BarCode = 4534676, DiscountPrice = "15%", Description = "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", TodaysDeals = 'T', CategoryId = 1, URL = "https://icon-library.com/images/120-512_84746.png" },
+                  new Product { Id = 3, Name = "HP", Price = 635.9, BarCode = 985012, DiscountPrice = "5%", Description = "easy to use", TodaysDeals = 'F', CategoryId = 1, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 56 },
+                  new Product { Id = 4, Name = "L.A. Girl", Price = 9.1, BarCode = 1403875, DiscountPrice = "0%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 246},
+                  new Product { Id = 5, Name = "L'Oreal", Price =25.6, BarCode = 0235752, DiscountPrice = "50%", Description = "Safe on the skin", TodaysDeals = 'T' , CategoryId = 2, InStock = 287 },
+                  new Product { Id = 7, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 98 },
+                  new Product { Id = 8, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 9 },
+                  new Product { Id = 9, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 3, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 86 },
+                  new Product { Id = 10, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 21 },
+                  new Product { Id = 11, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4, InStock = 62 },
+                  new Product { Id = 12, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 4, InStock = 74 },
+                  new Product { Id = 13, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 82 },
+                  new Product { Id = 14, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5, InStock = 2359 },
+                  new Product { Id = 15, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 5, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 23 },
+                  new Product { Id = 16, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6, InStock = 23 },
+                  new Product { Id = 17, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6, InStock = 93 },
+                  new Product { Id = 18, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6, URL = "https://icon-library.com/images/120-512_84746.png", InStock = 12 },
+                  new Product { Id = 19, Name = "Deall", Price = 400.50, BarCode = 78413566, DiscountPrice = "30%", Description = "Comfort for running", TodaysDeals = 'F', CategoryId = 6, InStock = 8 }
                   );
 
             modelBuilder.Entity<Company>().HasData(
