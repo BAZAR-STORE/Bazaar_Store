@@ -254,11 +254,7 @@ namespace Bazaar_Store.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Zip = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CartId = table.Column<int>(type: "int", nullable: false)
                 },

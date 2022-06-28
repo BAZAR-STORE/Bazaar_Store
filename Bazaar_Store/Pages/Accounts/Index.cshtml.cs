@@ -36,7 +36,8 @@ namespace Bazaar_Store.Pages.Accounts
             {
                 return Page();
             }
-            return Redirect("/Home");
+
+            return Redirect("/index");
         }
     }
 }
