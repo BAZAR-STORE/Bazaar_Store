@@ -58,13 +58,14 @@ namespace Bazaar_Store
             });
             services.AddAuthentication();
             services.AddAuthorization();
-
             services.AddTransient<ICompany, CompanyServieces>();
             services.AddTransient<IProduct, ProductServieces>();
             services.AddTransient<ICategory, CategoryServieces>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICart, CartService>();
-            
+            services.AddTransient<ICheckout, CheckoutService>();
+            services.AddTransient<IContact, ContactService>();
+
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(Configuration["ConnectionStrings:AzureBlob:blob"], preferMsi: true);

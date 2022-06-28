@@ -1,0 +1,67 @@
+﻿@page 
+@model Bazaar_Store.Pages.Invoices.IndexModel
+@{
+}
+<link rel="stylesheet" href="~/css/Invoice.css">
+@if(@Model.Cart != null && Model.Checkout !=null){
+<div class="invoice-box">
+	<img id="titleimg" src="~/images/Bazaar-logo.png" style="width: 100%; max-width: 150px" />
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td id="td_title">
+									Invoice #: @Model.Cart.Id<br />
+								
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td>
+									
+									Address : @Model.Checkout.Address<br/>
+								</td>
+								<td>
+									Custome Name : @Model.Checkout.Name<br />
+									Custome Email : @Model.Checkout.Email<br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class="heading">
+					<td>Item</td>
+
+					<td>Price</td>
+				</tr>
+			@foreach(var item in @Model.Cart.Products)
+			{
+				<tr class="item">
+					<td>@item.Name</td>
+
+					<td>@item.Price</td>
+				</tr>
+			}
+				<tr></tr>
+				<tr class="total">
+					<td>Total:</td>
+					<td>@Model.Cart.TotalCost JD</td>
+				</tr>
+			</table>
+				<form method="post">
+					<input type="hidden" name="cartId" value="@Model.Cart.Id">
+					<button id="proceed">Proceed to Checkout</button>
+				</form>
+		</div>
+		}else if(Model.Checkout == null ){
+			Response.Redirect("/Checkouts");
+		}else{
+			Response.Redirect("/Carts");
+		}

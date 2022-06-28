@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bazaar_Store.Migrations
 {
     [DbContext(typeof(BazaarDataBase))]
-    [Migration("20220625215402_AddTables")]
+    [Migration("20220628183829_AddTables")]
     partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,9 @@ namespace Bazaar_Store.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.Property<double>("TotalCost")
                         .HasColumnType("float");
@@ -188,6 +191,49 @@ namespace Bazaar_Store.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Checkout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Zip")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Checkout");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -246,6 +292,30 @@ namespace Bazaar_Store.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Bazaar_Store.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contact");
+                });
+
             modelBuilder.Entity("Bazaar_Store.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -300,10 +370,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 1,
                             Description = "Comfort for running",
                             DiscountPrice = "0%",
-                            InStock = 0,
+                            InStock = 23,
                             Name = "Nike Shoes",
                             Price = 12.0,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -315,7 +386,8 @@ namespace Bazaar_Store.Migrations
                             InStock = 0,
                             Name = "IBM",
                             Price = 11.300000000000001,
-                            TodaysDeals = "T"
+                            TodaysDeals = "T",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -324,10 +396,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 1,
                             Description = "easy to use",
                             DiscountPrice = "5%",
-                            InStock = 0,
+                            InStock = 56,
                             Name = "HP",
                             Price = 635.89999999999998,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -336,10 +409,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "0%",
-                            InStock = 0,
+                            InStock = 246,
                             Name = "L.A. Girl",
                             Price = 9.0999999999999996,
-                            TodaysDeals = "T"
+                            TodaysDeals = "T",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -348,7 +422,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 2,
                             Description = "Safe on the skin",
                             DiscountPrice = "50%",
-                            InStock = 0,
+                            InStock = 287,
                             Name = "L'Oreal",
                             Price = 25.600000000000001,
                             TodaysDeals = "T"
@@ -360,10 +434,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 98,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -372,10 +447,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 9,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -384,10 +460,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 3,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 86,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -396,10 +473,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 4,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 21,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -408,7 +486,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 4,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 62,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -420,7 +498,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 4,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 74,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -432,10 +510,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 5,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 82,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -444,7 +523,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 5,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 2359,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -456,10 +535,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 5,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 23,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -468,7 +548,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 6,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 23,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -480,7 +560,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 6,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 93,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -492,10 +572,11 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 6,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 12,
                             Name = "Deall",
                             Price = 400.5,
-                            TodaysDeals = "F"
+                            TodaysDeals = "F",
+                            URL = "https://icon-library.com/images/120-512_84746.png"
                         },
                         new
                         {
@@ -504,7 +585,7 @@ namespace Bazaar_Store.Migrations
                             CategoryId = 6,
                             Description = "Comfort for running",
                             DiscountPrice = "30%",
-                            InStock = 0,
+                            InStock = 8,
                             Name = "Deall",
                             Price = 400.5,
                             TodaysDeals = "F"
@@ -735,6 +816,23 @@ namespace Bazaar_Store.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Bazaar_Store.Models.Checkout", b =>
+                {
+                    b.HasOne("Bazaar_Store.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bazaar_Store.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("Bazaar_Store.Models.Product", b =>

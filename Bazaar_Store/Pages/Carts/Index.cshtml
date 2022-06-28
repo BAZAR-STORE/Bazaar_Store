@@ -7,6 +7,8 @@
 <div class="body">
     @if (Model.Cart != null)
     {
+        @if (Model.Cart.TotalCost > 0)
+        {
             <div class="CartContainer">
                 <div class="Header">
                     <h3 class="Heading">Shopping Cart</h3>
@@ -19,10 +21,12 @@
                 {
                     <div class="Cart-Items">
                         <div class="image-box">
+                            <img src="@item.URL" style="height:120px" />
                         </div>
                         <div class="about">
                             <h1 class="title">@item.Name</h1>
                             <h3 class="subtitle"></h3>
+                            <img src="~/images/veg.png" style="height:20px"/>
                         </div>
                         <div class="counter">
                             <form asp-page-handler="add" method="post">
@@ -56,15 +60,19 @@
                         </div>
                         <div class="total-amount">@Model.Cart.TotalCost JD</div>
                     </div>
-                      <a class="nav-link" href="emailsend">Checkout</a>
-                    @*<button class="nav-link" href="/emailsend" class="button">Checkout</button>*@
+                    <a href="/checkouts" class="button">Checkout</a>
                 </div>
             </div>
-      
+        }else
+            {
+        <div class="CartContainerempty">
+            <img id="emptycart" src = "~/images/EmptyCart.png" />
+            </div>
+            }
     }else
     {
         <div class="CartContainerempty">
-            <img src = "https://cdn3.iconfinder.com/data/icons/shopping-and-ecommerce-29/90/empty_cart-512.png" />
+            <img id="emptycart" src = "~/images/EmptyCart.png" />
             </div>
     }
    </div>

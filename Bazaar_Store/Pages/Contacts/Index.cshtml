@@ -1,0 +1,35 @@
+﻿@page
+@model Bazaar_Store.Pages.Contacts.IndexModel
+@using Bazaar_Store.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+}
+@{
+     var user = await UserManager.GetUserAsync(User);
+}
+
+<div class="contact-container">
+<div class="contact-child">
+    <h1>Let's talk about everything!</h1>
+    <img src="~/images/contact.svg" /> 
+</div>
+<div class = "contact-child">
+  <form method="post">
+    <input type="text" name="Name" value="@user.UserName" placeholder="Your name"/>
+    <input type="email" name="Email" value="@user.Email" placeholder="Email"/>
+    <input type="text" name="Subject" placeholder="Subject"/>
+    <textarea cols="30" rows="7" name="Message" placeholder="Write your message"></textarea>
+    <button id="contact-submit" type="submit">Send Message</button>
+</form>
+@if (ViewData["Message"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewData["Message"]");
+            };
+        </script>
+    }
+</div>
+</div>

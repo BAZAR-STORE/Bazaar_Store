@@ -75,6 +75,22 @@ namespace Bazaar_Store.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contact",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contact", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -186,6 +202,7 @@ namespace Bazaar_Store.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    State = table.Column<int>(type: "int", nullable: false),
                     TotalCost = table.Column<double>(type: "float", nullable: false),
                     TotalQuantity = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
@@ -225,6 +242,39 @@ namespace Bazaar_Store.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Checkout",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Zip = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CartId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Checkout", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Checkout_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Checkout_Carts_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -309,24 +359,24 @@ namespace Bazaar_Store.Migrations
                 columns: new[] { "Id", "BarCode", "CategoryId", "CategoryName", "Description", "DiscountPrice", "InStock", "Name", "Price", "TodaysDeals", "URL" },
                 values: new object[,]
                 {
-                    { 19, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 18, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 17, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 16, 78413566, 6, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 15, 78413566, 5, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 14, 78413566, 5, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 13, 78413566, 5, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 11, 78413566, 4, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 10, 78413566, 4, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 9, 78413566, 3, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 8, 78413566, 3, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 7, 78413566, 3, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 5, 235752, 2, null, "Safe on the skin", "50%", 0, "L'Oreal", 25.600000000000001, "T", null },
-                    { 4, 1403875, 2, null, "Safe on the skin", "0%", 0, "L.A. Girl", 9.0999999999999996, "T", null },
-                    { 3, 985012, 1, null, "easy to use", "5%", 0, "HP", 635.89999999999998, "F", null },
-                    { 2, 4534676, 1, null, "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", "15%", 0, "IBM", 11.300000000000001, "T", null },
-                    { 12, 78413566, 4, null, "Comfort for running", "30%", 0, "Deall", 400.5, "F", null },
-                    { 1, 34645768, 1, null, "Comfort for running", "0%", 0, "Nike Shoes", 12.0, "F", null }
+                    { 19, 78413566, 6, null, "Comfort for running", "30%", 8, "Deall", 400.5, "F", null },
+                    { 18, 78413566, 6, null, "Comfort for running", "30%", 12, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 17, 78413566, 6, null, "Comfort for running", "30%", 93, "Deall", 400.5, "F", null },
+                    { 16, 78413566, 6, null, "Comfort for running", "30%", 23, "Deall", 400.5, "F", null },
+                    { 15, 78413566, 5, null, "Comfort for running", "30%", 23, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 14, 78413566, 5, null, "Comfort for running", "30%", 2359, "Deall", 400.5, "F", null },
+                    { 13, 78413566, 5, null, "Comfort for running", "30%", 82, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 11, 78413566, 4, null, "Comfort for running", "30%", 62, "Deall", 400.5, "F", null },
+                    { 10, 78413566, 4, null, "Comfort for running", "30%", 21, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 9, 78413566, 3, null, "Comfort for running", "30%", 86, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 8, 78413566, 3, null, "Comfort for running", "30%", 9, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 7, 78413566, 3, null, "Comfort for running", "30%", 98, "Deall", 400.5, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 5, 235752, 2, null, "Safe on the skin", "50%", 287, "L'Oreal", 25.600000000000001, "T", null },
+                    { 4, 1403875, 2, null, "Safe on the skin", "0%", 246, "L.A. Girl", 9.0999999999999996, "T", "https://icon-library.com/images/120-512_84746.png" },
+                    { 3, 985012, 1, null, "easy to use", "5%", 56, "HP", 635.89999999999998, "F", "https://icon-library.com/images/120-512_84746.png" },
+                    { 2, 4534676, 1, null, "IBM P4 945G System Board For ThinkCentre A52 73P0780 41X0436", "15%", 0, "IBM", 11.300000000000001, "T", "https://icon-library.com/images/120-512_84746.png" },
+                    { 12, 78413566, 4, null, "Comfort for running", "30%", 74, "Deall", 400.5, "F", null },
+                    { 1, 34645768, 1, null, "Comfort for running", "0%", 23, "Nike Shoes", 12.0, "F", "https://icon-library.com/images/120-512_84746.png" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -379,6 +429,16 @@ namespace Bazaar_Store.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Checkout_CartId",
+                table: "Checkout",
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Checkout_UserId",
+                table: "Checkout",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -405,22 +465,28 @@ namespace Bazaar_Store.Migrations
                 name: "CartProduct");
 
             migrationBuilder.DropTable(
+                name: "Checkout");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "Contact");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Carts");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

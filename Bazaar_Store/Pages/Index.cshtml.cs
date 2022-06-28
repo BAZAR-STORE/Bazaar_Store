@@ -16,7 +16,7 @@ namespace Bazaar_Store.Pages
     {
         private readonly ICategory _category;
         private readonly ICart _cart;
-        public IndexModel(ICategory category,ICart cart)
+        public IndexModel(ICategory category, ICart cart)
         {
             _category = category;
             _cart = cart;
@@ -27,20 +27,21 @@ namespace Bazaar_Store.Pages
 
         public async Task OnGet()
         {
-            CookieOptions cookieOptions = new CookieOptions();
-            cookieOptions.Expires = new System.DateTimeOffset(DateTime.Now.AddDays(7));
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            CartDTO cartData = await _cart.GetUserCart(userId);
-            if (cartData != null)
+            if (_cart.GetCartByUserId(userId, 0))
             {
-                HttpContext.Response.Cookies.Append("count", cartData.TotalQuantity.ToString(), cookieOptions);
+                CartDTO cartData = await _cart.GetUserCart(userId, 0);
+                if (cartData != null)
+                {
+                    HttpContext.Response.Cookies.Append("count", cartData.TotalQuantity.ToString());
+                }
             }
             category = await _category.GetCategories();
         }
 
         public IActionResult OnPost(int id)
         {
-            return Redirect($"/Products?id={id}");
+            return Redirect($"/Products/{id}");
         }
     }
 }

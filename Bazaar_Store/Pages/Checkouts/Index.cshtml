@@ -1,0 +1,36 @@
+﻿@page
+@model Bazaar_Store.Pages.Checkouts.IndexModel
+@{
+@using Bazaar_Store.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+}
+@{
+     var user = await UserManager.GetUserAsync(User);
+}
+@if(Model.userCart != null && Model.checkout == null){
+    <div class="container-checkout">
+      <form method="post">
+            <h3>Billing Address</h3>
+            <label asp-for="@Model.checkout.Name"><i class="fa fa-user"></i> Full Name</label>
+            <input asp-for="@Model.checkout.Name" value="@user.UserName" >
+            <span asp-validation-for="checkout.Name" class="text-danger"></span>
+            <label asp-for="@Model.checkout.Email"><i class="fa fa-envelope"></i> Email</label>
+            <input asp-for="@Model.checkout.Email" value="@user.Email">
+            <span asp-validation-for="checkout.Email" class="text-danger"></span>
+           <label asp-for="@Model.checkout.Address"><i class="fa fa-address-card-o"></i> Address</label>
+            <input asp-for="@Model.checkout.Address" placeholder="542 W. 15th Street">
+            <span asp-validation-for="checkout.Address" class="text-danger"></span>
+
+                <br />
+        <input type="submit" value="Continue to checkout" class="btn">
+      </form>
+    </div>
+}
+else if(Model.checkout != null)
+{
+    Response.Redirect($"/Invoices");
+}else if(Model.userCart == null){
+    Response.Redirect("/carts");
+}
